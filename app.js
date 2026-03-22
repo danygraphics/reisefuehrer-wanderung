@@ -1,4 +1,46 @@
 // ═══════════════════════════════════════════════════
+// ① HELPERS: Maps-Sheet, Tabelle, Links
+// ═══════════════════════════════════════════════════
+
+document.body.insertAdjacentHTML('beforeend',
+  '<div id="maps-sheet" class="maps-sheet" onclick="if(event.target===this)closeMapsSheet()">' +
+    '<div class="maps-sheet-inner">' +
+      '<div class="maps-sheet-title">In Karte öffnen</div>' +
+      '<div class="maps-sheet-name"></div>' +
+      '<div class="maps-sheet-btns"></div>' +
+    '</div>' +
+  '</div>');
+
+function openMaps(el) {
+  const lat = el.dataset.lat, lng = el.dataset.lng;
+  const name = el.dataset.name || '';
+  const q = (lat && lng) ? `${lat},${lng}` : encodeURIComponent(name);
+  const sheet = document.getElementById('maps-sheet');
+  sheet.querySelector('.maps-sheet-name').textContent = name;
+  sheet.querySelector('.maps-sheet-btns').innerHTML =
+    `<a href="https://maps.apple.com/?q=${q}&z=16" class="maps-btn apple">🍎 Apple Karten</a>` +
+    `<a href="https://www.google.com/maps?q=${q}" target="_blank" class="maps-btn google">🗺️ Google Maps</a>` +
+    `<button onclick="closeMapsSheet()" class="maps-btn cancel">Abbrechen</button>`;
+  sheet.classList.add('open');
+  return false;
+}
+function closeMapsSheet() {
+  document.getElementById('maps-sheet').classList.remove('open');
+}
+function infoTable(rows) {
+  const r = rows.filter(([, v]) => v);
+  return r.length ? `<table class="info-tbl">${r.map(([l,v]) => `<tr><td class="itl">${l}</td><td>${v}</td></tr>`).join('')}</table>` : '';
+}
+function mapsAddr(lat, lng, name, addr) {
+  if (!addr) return '';
+  const nm = (name || '').replace(/"/g, '&quot;');
+  return `<a class="maps-addr" data-lat="${lat}" data-lng="${lng}" data-name="${nm}" onclick="openMaps(this);return false" href="#">${addr}</a>`;
+}
+function shortUrl(url) {
+  return url ? url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '') : '';
+}
+
+// ═══════════════════════════════════════════════════
 // ② COUNTDOWN
 // ═══════════════════════════════════════════════════
 function updateCountdown(){
@@ -83,8 +125,10 @@ function setActiveStage(day){
 function initMap(){
   const map = L.map('the-map', {zoomControl:true}).setView([48.98, 11.30], 9);
   window._map = map;
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-    attribution:'© OpenStreetMap', maxZoom:18
+  // CartoDB Voyager – keine Referer-Restriktionen, sauber für PWA
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{
+    attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains:'abcd', maxZoom:19
   }).addTo(map);
 
   // Fix Leaflet popup X-button: remove href="#close" to prevent external-link dialog
@@ -131,13 +175,16 @@ function initMap(){
   SIGHTS.forEach(si => {
     L.marker([si.lat,si.lng],{icon:makeEmoji(si.ico,'#3a7d5e',32)})
      .bindPopup(
-       `<h3>${si.name}</h3>` +
-       `<div style="display:flex;gap:5px;flex-wrap:wrap;margin:5px 0">` +
-         `<span class="pp-badge day">Tag ${si.day}</span>` +
-         `<span class="pp-badge price">${si.price}</span>` +
-         `<span class="pp-badge time">${si.open}</span>` +
-       `</div>` +
-       `<p>${si.desc}</p>`
+       `<h3>${si.ico} ${si.name}</h3>` +
+       `<p style="font-size:.8rem;color:#555;margin:4px 0 6px">${si.desc}</p>` +
+       infoTable([
+         ['📅 Tag',    `Tag ${si.day}`],
+         ['💰 Preis',  si.price],
+         ['🕐 Öffnung',si.open],
+         ['📍 Adresse',mapsAddr(si.lat, si.lng, si.name, si.addr)],
+         ['📞 Tel',    si.tel ? `<a href="tel:${si.tel}">${si.tel}</a>` : ''],
+         ['🌐 Web',    si.web ? `<a href="${si.web}" target="_blank">${shortUrl(si.web)}</a>` : ''],
+       ]), {maxWidth:280}
      ).addTo(layers.sights);
   });
   layers.sights.addTo(map);
@@ -145,13 +192,18 @@ function initMap(){
   // Hotel layer — unified navy #2c5f8a, sz=32
   layers.hotels = L.layerGroup();
   STAGES.forEach(s => {
+    const hd = HOTELS_DATA.find(h => h.day === s.day);
     L.marker([s.lat, s.lng],{icon:makeEmoji('🏨','#2c5f8a',32)})
      .bindPopup(
-       `<h3>${s.hotel}</h3>` +
-       `<div style="display:flex;gap:5px;flex-wrap:wrap;margin:5px 0">` +
-         `<span class="pp-badge day">Tag ${s.day} · ${s.to}</span>` +
-       `</div>` +
-       `<p>${s.hotel_note}</p>`
+       `<h3>🏨 ${s.hotel}</h3>` +
+       infoTable([
+         ['📅 Tag',    `Tag ${s.day} · ${s.to}`],
+         ['💰 Preis',  hd ? hd.preis : ''],
+         ['📝 Notiz',  s.hotel_note],
+         ['📍 Adresse',hd ? mapsAddr(s.lat, s.lng, s.hotel, hd.addr) : ''],
+         ['📞 Tel',    hd && hd.tel ? `<a href="tel:${hd.tel}">${hd.tel}</a>` : ''],
+         ['🌐 Web',    hd && hd.web ? `<a href="${hd.web}" target="_blank">${shortUrl(hd.web)}</a>` : ''],
+       ]), {maxWidth:280}
      ).addTo(layers.hotels);
   });
   layers.hotels.addTo(map);
@@ -161,11 +213,14 @@ function initMap(){
   RESTAURANTS.forEach(r => {
     L.marker([r.lat, r.lng],{icon:makeEmoji('🍽️','#b85c20',32)})
      .bindPopup(
-       `<h3>${r.name}</h3>` +
-       `<div style="display:flex;gap:5px;flex-wrap:wrap;margin:5px 0">` +
-         `<span class="pp-badge day">Tag ${r.day}</span>` +
-       `</div>` +
-       `<p>${r.desc}</p>`
+       `<h3>🍽️ ${r.name}</h3>` +
+       `<p style="font-size:.8rem;color:#555;margin:4px 0 6px">${r.desc}</p>` +
+       infoTable([
+         ['📅 Tag',    `Tag ${r.day}`],
+         ['📍 Adresse',mapsAddr(r.lat, r.lng, r.name, r.addr)],
+         ['📞 Tel',    r.tel ? `<a href="tel:${r.tel}">${r.tel}</a>` : ''],
+         ['🌐 Web',    r.web ? `<a href="${r.web}" target="_blank">${shortUrl(r.web)}</a>` : ''],
+       ]), {maxWidth:280}
      ).addTo(layers.restaurants);
   });
   layers.restaurants.addTo(map);
@@ -209,35 +264,42 @@ function setFilter(type, btn){
 
   let html = '';
   if(type === 'sights'){
-    html = `<div class="fl-hdr">Sehenswürdigkeiten (${SIGHTS.length})</div>`;
-    html += SIGHTS.map(si =>
+    const sorted = [...SIGHTS].sort((a,b) => a.day - b.day);
+    html = `<div class="fl-hdr">Sehenswürdigkeiten (${sorted.length})</div>`;
+    html += sorted.map(si =>
       `<div class="fl-item" onclick="flyToAndPopup(${si.lat},${si.lng})">
-         <div class="fl-name">${si.name} <span class="fl-stars">${si.stars}</span></div>
+         <div class="fl-name">${si.ico} ${si.name}</div>
          <div class="fl-badges">
            <span class="fl-badge">Tag ${si.day}</span>
            <span class="fl-badge">${si.price}</span>
            <span class="fl-badge">${si.open}</span>
          </div>
+         ${si.addr ? `<div class="fl-sub">${mapsAddr(si.lat,si.lng,si.name,si.addr)}</div>` : ''}
        </div>`).join('');
   } else if(type === 'hotels'){
-    html = `<div class="fl-hdr">Unterkünfte (${STAGES.length})</div>`;
-    html += STAGES.map(s =>
-      `<div class="fl-item" onclick="flyToAndPopup(${s.lat},${s.lng})">
-         <div class="fl-name">${s.hotel}</div>
+    const sorted = [...HOTELS_DATA].sort((a,b) => a.day - b.day);
+    html = `<div class="fl-hdr">Unterkünfte (${sorted.length})</div>`;
+    html += sorted.map(h => {
+      const s = STAGES.find(x => x.day === h.day);
+      return `<div class="fl-item" onclick="flyToAndPopup(${s.lat},${s.lng})">
+         <div class="fl-name">🏨 ${h.name}</div>
          <div class="fl-badges">
-           <span class="fl-badge">Tag ${s.day} · ${s.to}</span>
-           <span class="fl-badge">${s.hotel_note.split('·')[0].trim()}</span>
+           <span class="fl-badge">Tag ${h.day} · ${h.ort}</span>
+           <span class="fl-badge">${h.preis}</span>
          </div>
-       </div>`).join('');
+         ${h.addr ? `<div class="fl-sub">${mapsAddr(s.lat,s.lng,h.name,h.addr)}</div>` : ''}
+       </div>`;}).join('');
   } else if(type === 'restaurants'){
-    html = `<div class="fl-hdr">Restaurants (${RESTAURANTS.length})</div>`;
-    html += RESTAURANTS.map(r =>
+    const sorted = [...RESTAURANTS].sort((a,b) => a.day - b.day);
+    html = `<div class="fl-hdr">Restaurants (${sorted.length})</div>`;
+    html += sorted.map(r =>
       `<div class="fl-item" onclick="flyToAndPopup(${r.lat},${r.lng})">
-         <div class="fl-name">${r.name}</div>
+         <div class="fl-name">🍽️ ${r.name}</div>
          <div class="fl-badges">
            <span class="fl-badge">Tag ${r.day}</span>
          </div>
-         <div class="fl-sub">${r.desc.length > 50 ? r.desc.slice(0,50)+'…' : r.desc}</div>
+         <div class="fl-sub">${r.desc.length > 55 ? r.desc.slice(0,55)+'…' : r.desc}</div>
+         ${r.addr ? `<div class="fl-sub">${mapsAddr(r.lat,r.lng,r.name,r.addr)}</div>` : ''}
        </div>`).join('');
   }
   list.innerHTML = html;
@@ -286,11 +348,14 @@ function buildStagePanel(){
     } else {
       sightsTab = daySights.map(si =>
         `<div class="spd-item" onclick="flyToAndPopup(${si.lat},${si.lng})">
-           <div class="spd-name">${si.name} <span style="color:#f59e0b">${si.stars}</span></div>
-           <div class="spd-badges">
-             <span class="spd-badge">${si.price}</span>
-             <span class="spd-badge">${si.open}</span>
-           </div>
+           <div class="spd-name">${si.ico} ${si.name}</div>
+           ${infoTable([
+             ['💰', si.price],
+             ['🕐', si.open],
+             ['📍', mapsAddr(si.lat, si.lng, si.name, si.addr)],
+             ['📞', si.tel ? `<a href="tel:${si.tel}">${si.tel}</a>` : ''],
+             ['🌐', si.web ? `<a href="${si.web}" target="_blank">${shortUrl(si.web)}</a>` : ''],
+           ])}
          </div>`).join('');
     }
 
@@ -302,15 +367,26 @@ function buildStagePanel(){
       essenTab = dayRestos.map(r =>
         `<div class="spd-item" onclick="flyToAndPopup(${r.lat},${r.lng})">
            <div class="spd-name">${r.name}</div>
-           <div class="spd-desc">${r.desc.length > 60 ? r.desc.slice(0,60)+'…' : r.desc}</div>
+           ${infoTable([
+             ['📝', r.desc],
+             ['📍', mapsAddr(r.lat, r.lng, r.name, r.addr)],
+             ['📞', r.tel ? `<a href="tel:${r.tel}">${r.tel}</a>` : ''],
+           ])}
          </div>`).join('');
     }
 
     // ── Tab 3: Hotel ──
+    const hd = HOTELS_DATA.find(h => h.day === s.day);
     const schlafenTab =
       `<div class="spd-item">
-         <div class="spd-name">${s.hotel}</div>
-         <div class="spd-badges"><span class="spd-badge">${s.hotel_note}</span></div>
+         <div class="spd-name">🏨 ${s.hotel}</div>
+         ${infoTable([
+           ['💰', hd ? hd.preis : ''],
+           ['📝', s.hotel_note],
+           ['📍', hd ? mapsAddr(s.lat, s.lng, s.hotel, hd.addr) : ''],
+           ['📞', hd && hd.tel ? `<a href="tel:${hd.tel}">${hd.tel}</a>` : ''],
+           ['🌐', hd && hd.web ? `<a href="${hd.web}" target="_blank">${shortUrl(hd.web)}</a>` : ''],
+         ])}
        </div>`;
 
     // First tab is active by default
@@ -578,11 +654,39 @@ buildEtappen();
 function buildSights(filter){
   const wrap = document.getElementById('sights-list');
   wrap.innerHTML = '';
-  (filter === 'all' ? SIGHTS : SIGHTS.filter(s => s.cat === filter)).forEach(s => {
-    const div = document.createElement('div');
-    div.className = 'sight-c';
-    div.innerHTML = `<div class="s-ico">${s.ico}</div><div class="s-info"><div class="s-name">${s.name}</div><div class="s-day">Tag ${s.day} · ${s.price} · ${s.open}</div><div class="s-stars">${s.stars}</div><div class="s-desc">${s.desc}</div></div>`;
-    wrap.appendChild(div);
+  const list = (filter === 'all' ? SIGHTS : SIGHTS.filter(s => s.cat === filter))
+    .slice().sort((a,b) => a.day - b.day);
+
+  // Nach Tag gruppieren
+  const byDay = {};
+  list.forEach(s => { (byDay[s.day] = byDay[s.day] || []).push(s); });
+
+  Object.keys(byDay).map(Number).sort((a,b)=>a-b).forEach(day => {
+    const stage = STAGES.find(s => s.day === day);
+    // Tages-Überschrift
+    const hdr = document.createElement('div');
+    hdr.className = 'sights-day-hdr';
+    hdr.innerHTML = `<span class="sdh-num">Tag ${day}</span>`+
+      (stage ? `<span class="sdh-route">${stage.from} → ${stage.to}</span>` : '')+
+      `<span class="sdh-date">${stage ? stage.date : ''}</span>`;
+    wrap.appendChild(hdr);
+
+    byDay[day].forEach(s => {
+      const div = document.createElement('div');
+      div.className = 'sight-c';
+      div.innerHTML = `<div class="s-ico">${s.ico}</div><div class="s-info">
+        <div class="s-name">${s.name}</div>
+        <div class="s-desc">${s.desc}</div>
+        ${infoTable([
+          ['💰 Preis',  s.price],
+          ['🕐 Öffnung',s.open],
+          ['📍 Adresse',mapsAddr(s.lat, s.lng, s.name, s.addr)],
+          ['📞 Tel',    s.tel ? `<a href="tel:${s.tel}">${s.tel}</a>` : ''],
+          ['🌐 Website',s.web ? `<a href="${s.web}" target="_blank">${shortUrl(s.web)}</a>` : ''],
+        ])}
+      </div>`;
+      wrap.appendChild(div);
+    });
   });
 }
 function filterSights(cat,btn){
@@ -644,8 +748,26 @@ buildPack();
 // ⑩ ESSEN & TIPPS & HOTELS
 // ═══════════════════════════════════════════════════
 function buildEssen(){
+  // Restaurants nach Tag sortieren: ESSEN_DATA mit RESTAURANTS-Koordinaten anreichern
+  const sorted = [...ESSEN_DATA.highlights].sort((a,b) => {
+    const da = parseInt(a.day) || 0, db = parseInt(b.day) || 0;
+    return da - db;
+  });
   let h = '<div class="food-sec"><div class="food-sec-hdr">🌟 Restaurant-Highlights</div>';
-  ESSEN_DATA.highlights.forEach(r => { h += `<div class="food-c"><div class="food-name">${r.name}</div><div class="food-day">${r.day}</div><div class="food-stars">${r.stars}</div><div class="food-desc">${r.desc}</div></div>`; });
+  sorted.forEach(r => {
+    // Koordinaten aus RESTAURANTS für Maps-Link suchen
+    const match = RESTAURANTS.find(x => x.name === r.name || x.name.includes(r.name.split(' ')[0]));
+    const addrLink = (match && r.addr) ? mapsAddr(match.lat, match.lng, r.name, r.addr) : (r.addr || '');
+    h += `<div class="food-c">
+      <div class="food-name">${r.name}</div>
+      ${infoTable([
+        ['📅',  r.day],
+        ['📍',  addrLink],
+        ['📞',  r.tel ? `<a href="tel:${r.tel}">${r.tel}</a>` : ''],
+      ])}
+      <div class="food-desc">${r.desc}</div>
+    </div>`;
+  });
   h += '</div><div class="food-sec"><div class="food-sec-hdr">🎒 Verpflegung unterwegs</div><div class="food-c">';
   ESSEN_DATA.trail.forEach(t => { h += `<div class="food-trail-item"><div class="fi">${t.ico}</div><div>${t.txt}</div></div>`; });
   document.getElementById('essen-list').innerHTML = h + '</div></div>';
@@ -660,17 +782,27 @@ function buildTipps(){
 buildTipps();
 
 function buildHotels(){
-  document.getElementById('hotels-list').innerHTML = HOTELS_DATA.map(h => {
+  const sorted = [...HOTELS_DATA].sort((a,b) => a.day - b.day);
+  document.getElementById('hotels-list').innerHTML = sorted.map(h => {
     const s = STAGES.find(x=>x.day===h.day);
     const diff = getDiff(s);
     const col = DIFF[diff].col;
-    return `<div class="e-card" style="margin:8px 12px 0"><div style="padding:11px 12px;display:flex;gap:10px;align-items:flex-start">
-      <div class="e-num" style="background:${col};flex-shrink:0">${h.day}</div>
-      <div style="flex:1"><div style="font-weight:700;font-size:.86rem;color:#1e3a28">${h.name}</div>
-      <div style="font-size:.72rem;color:#999;margin:1px 0">${h.ort} ${h.stars}</div>
-      <div style="font-size:.8rem;color:#c97d2a;font-weight:600;margin-top:3px">${h.preis}</div>
-      <div style="font-size:.8rem;color:#555;margin-top:2px">${h.note}</div></div>
-    </div></div>`;
+    return `<div class="e-card" style="margin:8px 12px 0">
+      <div style="padding:11px 12px;display:flex;gap:10px;align-items:flex-start">
+        <div class="e-num" style="background:${col};flex-shrink:0">${h.day}</div>
+        <div style="flex:1">
+          <div style="font-weight:700;font-size:.86rem;color:#1e3a28">${h.name}</div>
+          <div style="font-size:.72rem;color:#999;margin-bottom:4px">${h.ort}</div>
+          ${infoTable([
+            ['💰 Preis',  h.preis],
+            ['📝 Notiz',  h.note],
+            ['📍 Adresse',mapsAddr(s.lat, s.lng, h.name, h.addr)],
+            ['📞 Tel',    h.tel ? `<a href="tel:${h.tel}">${h.tel}</a>` : ''],
+            ['🌐 Website',h.web ? `<a href="${h.web}" target="_blank">${shortUrl(h.web)}</a>` : ''],
+          ])}
+        </div>
+      </div>
+    </div>`;
   }).join('');
 }
 buildHotels();

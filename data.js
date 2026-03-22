@@ -106,40 +106,60 @@ const STAGES = [
 ];
 
 // Sehenswürdigkeiten
+// Felder: cat, ico, name, day, price, open, desc, lat, lng, addr, web, tel
 const SIGHTS = [
-  {cat:"dino",ico:"🦕",name:"Museum Solnhofen",stars:"⭐⭐⭐",day:5,price:"~6 €",open:"10–17 Uhr",desc:"3 originale Archaeopteryx-Skelette + Sciurumimus. Absolutes Highlight!",lat:48.8892,lng:11.0396},
-  {cat:"dino",ico:"🔨",name:"Hobbysteinbruch Solnhofen",stars:"⭐⭐⭐",day:5,price:"~9 € Kombi",open:"10–17 Uhr",desc:"Selbst Fossilien klopfen! Werkzeug leihbar.",lat:48.888,lng:11.035},
-  {cat:"dino",ico:"🦖",name:"Jura-Museum Willibaldsburg",stars:"⭐⭐⭐",day:8,price:"~6 €",open:"10–17 Uhr",desc:"Archaeopteryx-Original, Juravenator, Korallenriff-Aquarium auf der Burg.",lat:48.8893,lng:11.1804},
-  {cat:"burg",ico:"🏰",name:"Burg Pappenheim",stars:"⭐⭐",day:4,price:"frei",open:"tägl.",desc:"Ruine mit Museum & Kräutergarten, Panoramablick.",lat:48.9268,lng:10.9700},
-  {cat:"burg",ico:"🏰",name:"Burg Kipfenberg",stars:"⭐⭐",day:10,price:"inkl.",open:"tägl.",desc:"Römer- & Bajuwarenmuseum + Geografische Mitte Bayerns!",lat:48.9744,lng:11.3670},
-  {cat:"burg",ico:"🏰",name:"Burg Prunn",stars:"⭐⭐⭐",day:15,price:"~4 €",open:"ab 9h",desc:"Nibelungenlied-Handschrift C hier gefunden! Postkarten-Burg auf Kalkfelsen.",lat:48.9490,lng:11.7413},
-  {cat:"burg",ico:"🦅",name:"Rosenburg & Falkenhof",stars:"⭐⭐",day:14,price:"~8 €",open:"saisonal",desc:"Mittelalterliche Burg mit Greifvogel-Flugshow.",lat:48.9875,lng:11.6718},
-  {cat:"therm",ico:"♨️",name:"Altmühltherme Treuchtlingen",stars:"⭐⭐⭐",day:3,price:"~29 €",open:"tägl.",desc:"Heilwasser aus 800 m Tiefe, Saunalandschaft – nur 700 m vom Bahnhof!",lat:48.9569,lng:10.9108},
-  {cat:"therm",ico:"🛁",name:"Hotel Die Gams – Spa House",stars:"⭐⭐⭐",day:12,price:"inkl.",open:"tägl.",desc:"Indoor-Pool, Sauna, Dampfbad, Infrarot, Wasserbetten – alles inklusive.",lat:49.0334,lng:11.4758},
-  {cat:"natur",ico:"🗿",name:"Zwölf Apostel",stars:"⭐⭐⭐",day:6,price:"frei",open:"immer",desc:"Spektakuläre Kalksteinfelsen – Highlight der schönsten Etappe!",lat:48.878,lng:11.050},
-  {cat:"natur",ico:"⛰️",name:"Weltenburger Enge",stars:"⭐⭐⭐",day:16,price:"frei",open:"immer",desc:"Donaudurchbruch mit 70 m Felswänden – UNESCO-Welterbe-Kandidat.",lat:48.9048,lng:11.7887},
-  {cat:"natur",ico:"🦇",name:"Tropfsteinhöhle Schulerloch",stars:"⭐⭐",day:15,price:"~6 €",open:"Führungen",desc:"Schauhöhle mit Tropfsteinformationen, Führungen ~40 Min.",lat:48.9557,lng:11.7212},
-  {cat:"natur",ico:"🦇",name:"Arndthöhle Kipfenberg",stars:"⭐⭐",day:10,price:"frei",open:"immer",desc:"Tropfsteinhöhle direkt am Wanderweg.",lat:48.960,lng:11.370},
-  {cat:"natur",ico:"🌊",name:"Steinerne Rinne Wolfsbronn",stars:"⭐⭐",day:2,price:"frei",open:"immer",desc:"Naturdenkmal – Bach fließt auf Kalktuffdamm bergaufwärts!",lat:49.010,lng:10.790},
-  {cat:"natur",ico:"🦶",name:"Barfußpark Dietfurt",stars:"⭐",day:13,price:"frei",open:"immer",desc:"Sinneserlebnis für müde Wanderfüße.",lat:49.0758,lng:11.5856},
-  {cat:"kultur",ico:"⛪",name:"Kloster Weltenburg",stars:"⭐⭐⭐",day:16,price:"frei",open:"tägl.",desc:"Älteste Klosterbrauerei der Welt (seit 1050!). Biergarten an der Donau.",lat:48.9048,lng:11.7887},
-  {cat:"kultur",ico:"🏛️",name:"Befreiungshalle Kelheim",stars:"⭐⭐",day:16,price:"~4 €",open:"tägl.",desc:"Monumentalbau auf dem Michelsberg von Leo von Klenze.",lat:48.9121,lng:11.8698},
-  {cat:"kultur",ico:"🌉",name:"Tatzlwurm-Holzbrücke Essing",stars:"⭐⭐",day:15,price:"frei",open:"immer",desc:"Zweitlängste Holzbrücke Europas.",lat:48.9462,lng:11.7582},
-  {cat:"kultur",ico:"🎨",name:"Museum für Konkrete Kunst",stars:"⭐⭐",day:8,price:"~5 €",open:"Di–So",desc:"Mit Skulpturengarten in Eichstätt.",lat:48.8920,lng:11.1800},
-  {cat:"kultur",ico:"💎",name:"Kristallmuseum Riedenburg",stars:"⭐",day:14,price:"~5 €",open:"tägl.",desc:"Größte Bergkristallgruppe der Welt.",lat:48.9870,lng:11.6750}
+  // ── Dino ──
+  {cat:"dino",ico:"🦕",name:"Museum Solnhofen",day:5,price:"~6 €",open:"Di–So 10–17 Uhr",desc:"3 originale Archaeopteryx-Skelette + Sciurumimus. Absolutes Highlight!",lat:48.8892,lng:11.0396,addr:"Bahnhofstr. 8, 91807 Solnhofen",web:"https://museum-solnhofen.de",tel:"+49 9145 1294"},
+  {cat:"dino",ico:"🔨",name:"Hobbysteinbruch Solnhofen",day:5,price:"~9 € Kombi",open:"Di–So 10–17 Uhr",desc:"Selbst Fossilien klopfen! Werkzeug leihbar.",lat:48.888,lng:11.035,addr:"91807 Solnhofen",web:"https://museum-solnhofen.de",tel:"+49 9145 1294"},
+  {cat:"dino",ico:"🦖",name:"Jura-Museum Willibaldsburg",day:8,price:"~6 €",open:"Di–So 10–17 Uhr",desc:"Archaeopteryx-Original, Juravenator, Korallenriff-Aquarium auf der Burg.",lat:48.8893,lng:11.1804,addr:"Burgstraße 19, 85072 Eichstätt",web:"https://www.jura-museum.de",tel:"+49 8421 2956"},
+  {cat:"dino",ico:"🦖",name:"Dinosaurier Museum Denkendorf",day:12,price:"~8 €",open:"tägl. 10–18 Uhr",desc:"Größtes privates Dino-Museum Deutschlands! 10 Originalskelette. Opt. per Bus von Beilngries.",lat:48.9300,lng:11.4900,addr:"85132 Schernfeld-Denkendorf",web:"https://www.dinosaurier-museum.de",tel:"+49 8422 8895"},
+  // ── Burg ──
+  {cat:"burg",ico:"🏰",name:"Burg Pappenheim",day:4,price:"frei",open:"tägl.",desc:"Ruine mit Museum & Kräutergarten, Panoramablick.",lat:48.9268,lng:10.9700,addr:"Zur Burg, 91788 Pappenheim",web:"https://www.pappenheim.de",tel:"+49 9143 606227"},
+  {cat:"burg",ico:"🏰",name:"Burg Kipfenberg",day:10,price:"inkl.",open:"tägl.",desc:"Römer- & Bajuwarenmuseum + Geografische Mitte Bayerns!",lat:48.9744,lng:11.3670,addr:"85110 Kipfenberg",web:"https://www.kipfenberg.de",tel:"+49 8465 607"},
+  {cat:"burg",ico:"🏰",name:"Burg Prunn",day:15,price:"~4 €",open:"ab 9h",desc:"Nibelungenlied-Handschrift C hier gefunden! Postkarten-Burg auf Kalkfelsen.",lat:48.9490,lng:11.7413,addr:"Burg 1, 93339 Riedenburg",web:"https://www.schloesser.bayern.de",tel:"+49 9442 3323"},
+  {cat:"burg",ico:"🦅",name:"Rosenburg & Falkenhof",day:14,price:"~8 €",open:"saisonal",desc:"Mittelalterliche Burg mit Greifvogel-Flugshow.",lat:48.9875,lng:11.6718,addr:"Rosenburg 1, 93339 Riedenburg",web:"https://www.rosenburg.de",tel:"+49 9442 2552"},
+  // ── Therm ──
+  {cat:"therm",ico:"♨️",name:"Altmühltherme Treuchtlingen",day:3,price:"~29 €",open:"tägl.",desc:"Heilwasser aus 800 m Tiefe, Saunalandschaft – nur 700 m vom Bahnhof!",lat:48.9569,lng:10.9108,addr:"Thermenallee 1, 91757 Treuchtlingen",web:"https://www.altmuehltherme.de",tel:"+49 9142 96060"},
+  {cat:"therm",ico:"🛁",name:"Hotel Die Gams – Spa House",day:12,price:"inkl.",open:"tägl.",desc:"Indoor-Pool, Sauna, Dampfbad, Infrarot, Wasserbetten – alles inklusive.",lat:49.0334,lng:11.4758,addr:"Hauptstraße 16, 92339 Beilngries",web:"https://www.diegams.de",tel:"+49 8461 2011"},
+  // ── Natur ──
+  {cat:"natur",ico:"🌊",name:"Altmühlsee",day:1,price:"frei",open:"immer",desc:"Erholungsgebiet mit Wanderwegen, Strand und Vogelschutzinseln. Schöner Auftakt der Tour.",lat:49.133,lng:10.725,addr:"Altmühlsee, 91710 Gunzenhausen",web:"https://www.altmuehlsee.de",tel:""},
+  {cat:"natur",ico:"⛰️",name:"Hahnenkamm",day:1,price:"frei",open:"immer",desc:"Bewaldeter Höhenrücken südlich von Gunzenhausen mit Panoramablicken über das Altmühltal.",lat:49.040,lng:10.730,addr:"Hahnenkamm, 91730 Wilburgstetten",web:"",tel:""},
+  {cat:"natur",ico:"👁️",name:"Aussichtspunkt Gelber Berg",day:2,price:"frei",open:"immer",desc:"Panoramablick über das Altmühltal und die Hahnenkamm-Region. Einer der schönsten Aussichtspunkte.",lat:49.020,lng:10.795,addr:"bei Wolfsbronn, 91750 Unterschwaningen",web:"",tel:""},
+  {cat:"natur",ico:"🌊",name:"Steinerne Rinne Wolfsbronn",day:2,price:"frei",open:"immer",desc:"Naturdenkmal – Bach fließt auf Kalktuffdamm bergaufwärts!",lat:49.010,lng:10.790,addr:"Wolfsbronn, 91750 Unterschwaningen",web:"",tel:""},
+  {cat:"natur",ico:"🗿",name:"Zwölf Apostel",day:6,price:"frei",open:"immer",desc:"Spektakuläre Kalksteinfelsen – Highlight der schönsten Etappe!",lat:48.878,lng:11.050,addr:"bei Dollnstein, 91795",web:"",tel:""},
+  {cat:"natur",ico:"🌿",name:"Wacholderheiden Dollnstein",day:6,price:"frei",open:"immer",desc:"Naturschutzgebiet mit seltenen Wacholderbeständen und artenreichen Halbtrockenrasen.",lat:48.882,lng:11.055,addr:"bei Dollnstein, 91795",web:"",tel:""},
+  {cat:"natur",ico:"🪨",name:"Burgsteinfelsen Eichstätt",day:7,price:"frei",open:"immer",desc:"Markanter Kalkfelsen mit Panoramablick über Eichstätt. Bestes Fotomotiv vor der Stadtkulisse.",lat:48.893,lng:11.178,addr:"Burgsteig, 85072 Eichstätt",web:"",tel:""},
+  {cat:"natur",ico:"🦣",name:"Mammuthöhle Buchenhüll",day:9,price:"frei",open:"immer",desc:"Natürliche Höhle mit Mammutknochenfunden bei Eichstätt. Historisch bedeutsame Fundstätte.",lat:48.913,lng:11.268,addr:"Buchenhüll, 85072 Eichstätt",web:"",tel:""},
+  {cat:"natur",ico:"⛰️",name:"Weltenburger Enge",day:16,price:"frei",open:"immer",desc:"Donaudurchbruch mit 70 m Felswänden – UNESCO-Welterbe-Kandidat.",lat:48.9048,lng:11.7887,addr:"Donaudurchbruch, 93333 Kelheim",web:"https://www.naturpark-altmuehltal.de",tel:""},
+  {cat:"natur",ico:"🦇",name:"Tropfsteinhöhle Schulerloch",day:15,price:"~6 €",open:"Führungen",desc:"Schauhöhle mit Tropfsteinformationen, Führungen ~40 Min.",lat:48.9557,lng:11.7212,addr:"93309 Essing",web:"https://www.schulerloch.de",tel:"+49 9442 9159"},
+  {cat:"natur",ico:"🦇",name:"Arndthöhle Kipfenberg",day:10,price:"frei",open:"immer",desc:"Tropfsteinhöhle direkt am Wanderweg.",lat:48.960,lng:11.370,addr:"bei Kipfenberg, 85110",web:"",tel:""},
+  {cat:"natur",ico:"🦶",name:"Barfußpark Dietfurt",day:13,price:"frei",open:"immer",desc:"Sinneserlebnis für müde Wanderfüße.",lat:49.0758,lng:11.5856,addr:"Freiung, 92345 Dietfurt",web:"https://www.dietfurt.de",tel:""},
+  // ── Kultur ──
+  {cat:"kultur",ico:"🏛️",name:"Archäologisches Museum Gunzenhausen",day:1,price:"~3 €",open:"Di–So 10–17 Uhr",desc:"Vor- und Frühgeschichte der Region, römische Funde und Ausstellungen zur Altmühltal-Geschichte.",lat:49.1138,lng:10.7543,addr:"Schlossplatz 4, 91710 Gunzenhausen",web:"https://www.gunzenhausen.de",tel:"+49 9831 508212"},
+  {cat:"kultur",ico:"🏘️",name:"Historische Altstadt Pappenheim",day:4,price:"frei",open:"immer",desc:"Mittelalterliches Stadtbild mit Fachwerkhäusern und historischem Rathaus.",lat:48.9268,lng:10.970,addr:"Marktplatz, 91788 Pappenheim",web:"https://www.pappenheim.de",tel:""},
+  {cat:"kultur",ico:"🏛️",name:"Römerkastell Pfünz (Vetoniana)",day:9,price:"frei",open:"immer",desc:"Gut erhaltene Mauerreste des Limes-Kastells. Opt. Abstecher +1,5 km ab Wanderweg.",lat:48.948,lng:11.344,addr:"Pfünz, 85131 Walting",web:"https://www.limes-welterbe.de",tel:""},
+  {cat:"kultur",ico:"🏰",name:"Altstadt Beilngries",day:11,price:"frei",open:"immer",desc:"Vollständig erhaltene mittelalterliche Stadtmauer mit 7 Türmen und 2 Toren.",lat:49.0333,lng:11.4749,addr:"Hauptstraße, 92339 Beilngries",web:"https://www.beilngries.de",tel:""},
+  {cat:"kultur",ico:"🚗",name:"Technikmuseum Kratzmühle",day:11,price:"~6 €",open:"Sa+So 10–17 Uhr",desc:"Historische Mühle mit Oldtimer-Sammlung und Technikausstellungen.",lat:49.014,lng:11.430,addr:"Kratzmühle 1, 85110 Kinding",web:"https://www.kratzmuehle.de",tel:"+49 8467 305"},
+  {cat:"kultur",ico:"🎨",name:"Museum für Konkrete Kunst",day:8,price:"~5 €",open:"Di–So",desc:"Mit Skulpturengarten in Eichstätt.",lat:48.8920,lng:11.1800,addr:"Residenzplatz 3, 85072 Eichstätt",web:"https://www.mkk-eichstaett.de",tel:"+49 8421 8980"},
+  {cat:"kultur",ico:"💎",name:"Kristallmuseum Riedenburg",day:14,price:"~5 €",open:"tägl.",desc:"Größte Bergkristallgruppe der Welt.",lat:48.9870,lng:11.6750,addr:"Rathausstraße 2, 93339 Riedenburg",web:"https://www.riedenburg.de",tel:"+49 9442 905440"},
+  {cat:"kultur",ico:"⛪",name:"Kloster Weltenburg",day:16,price:"frei",open:"tägl.",desc:"Älteste Klosterbrauerei der Welt (seit 1050!). Biergarten an der Donau.",lat:48.9048,lng:11.7887,addr:"Asamstraße 32, 93333 Kelheim",web:"https://www.kloster-weltenburg.de",tel:"+49 9441 6752"},
+  {cat:"kultur",ico:"🚢",name:"Schifffahrt Weltenburg → Kelheim",day:16,price:"~6 €",open:"April–Okt tägl.",desc:"Spektakuläre Bootsfahrt durch den Donaudurchbruch. Ca. 30 Min., stündlich ab Kloster Weltenburg.",lat:48.9050,lng:11.7900,addr:"Kloster Weltenburg, 93333 Kelheim",web:"https://www.schifffahrt-kelheim.de",tel:"+49 9441 2235"},
+  {cat:"kultur",ico:"🏛️",name:"Befreiungshalle Kelheim",day:16,price:"~4 €",open:"tägl.",desc:"Monumentalbau auf dem Michelsberg von Leo von Klenze.",lat:48.9121,lng:11.8698,addr:"Befreiungshallestraße 3, 93309 Kelheim",web:"https://www.schloesser.bayern.de",tel:"+49 9441 68207"},
+  {cat:"kultur",ico:"🌉",name:"Tatzlwurm-Holzbrücke Essing",day:15,price:"frei",open:"immer",desc:"Zweitlängste Holzbrücke Europas.",lat:48.9462,lng:11.7582,addr:"93309 Essing",web:"",tel:""},
 ];
 
 // Restaurants (Karten-Layer)
+// Felder: name, day, lat, lng, desc, addr, web, tel
 const RESTAURANTS = [
-  {name:"Gasthof Verkaufter Großvater ⭐",day:5,lat:48.8892,lng:11.0393,desc:"Legendäres Frühstück · böhmisch-fränkische Küche · Dino-Deko"},
-  {name:"Zum Mühlenwirt Solnhofen",day:5,lat:48.887,lng:11.037,desc:"Biergarten an der Altmühl · Google 4.7/5"},
-  {name:"Hotel-Gasthof Zur Sonne Pappenheim",day:4,lat:48.926,lng:10.970,desc:"Gehobene fränkische Küche · Biergarten"},
-  {name:"Braugasthof Trompeter Eichstätt",day:7,lat:48.892,lng:11.179,desc:"Hauseigenes Bier · deftige bayerische Küche"},
-  {name:"Gasthof Zum Blauen Hecht",day:10,lat:48.974,lng:11.367,desc:"Familienbetrieb · bayerische Gastlichkeit · ab 17h"},
-  {name:"Restaurant Hotel Die Gams",day:11,lat:49.033,lng:11.476,desc:"Regionale & int. Küche · Perlhuhn · Frühstücksbuffet"},
-  {name:"Brauereigasthof Schneider ⭐",day:15,lat:48.946,lng:11.754,desc:"Privatbrauerei · zwischen Fels & Fluss · Hausbier!"},
-  {name:"Klosterschenke Weltenburg ⭐⭐",day:16,lat:48.905,lng:11.789,desc:"Älteste Klosterbrauerei · Dunkles Bier im Biergarten"},
-  {name:"Weisses Brauhaus Kelheim",day:16,lat:48.917,lng:11.873,desc:"Schneider Weisse Heimat · Biergarten"}
+  {name:"Gasthof Verkaufter Großvater",day:5,lat:48.8892,lng:11.0393,desc:"Legendäres Frühstück · böhmisch-fränkische Küche · Dino-Deko",addr:"Bahnhofstr. 12, 91807 Solnhofen",web:"",tel:"+49 9145 1294"},
+  {name:"Zum Mühlenwirt Solnhofen",day:5,lat:48.887,lng:11.037,desc:"Biergarten an der Altmühl · Google 4.7/5",addr:"91807 Solnhofen",web:"",tel:""},
+  {name:"Hotel-Gasthof Zur Sonne Pappenheim",day:4,lat:48.926,lng:10.970,desc:"Gehobene fränkische Küche · Biergarten",addr:"Deisinger Straße 20, 91788 Pappenheim",web:"https://www.sonne-pappenheim.de",tel:"+49 9143 8310"},
+  {name:"Braugasthof Trompeter Eichstätt",day:7,lat:48.892,lng:11.179,desc:"Hauseigenes Bier · deftige bayerische Küche",addr:"Ostenstraße 3, 85072 Eichstätt",web:"",tel:"+49 8421 1295"},
+  {name:"Gasthof Zum Blauen Hecht",day:10,lat:48.974,lng:11.367,desc:"Familienbetrieb · bayerische Gastlichkeit · ab 17h",addr:"Marktplatz 1, 85110 Kipfenberg",web:"",tel:"+49 8465 607"},
+  {name:"Restaurant Hotel Die Gams",day:11,lat:49.033,lng:11.476,desc:"Regionale & int. Küche · Perlhuhn · Frühstücksbuffet",addr:"Hauptstraße 16, 92339 Beilngries",web:"https://www.diegams.de",tel:"+49 8461 2011"},
+  {name:"Brauereigasthof Schneider",day:15,lat:48.946,lng:11.754,desc:"Privatbrauerei · zwischen Fels & Fluss · Hausbier!",addr:"93309 Essing",web:"",tel:"+49 9442 2354"},
+  {name:"Klosterschenke Weltenburg",day:16,lat:48.905,lng:11.789,desc:"Älteste Klosterbrauerei · Dunkles Bier im Biergarten",addr:"Asamstraße 32, 93333 Kelheim",web:"https://www.kloster-weltenburg.de",tel:"+49 9441 6752"},
+  {name:"Weisses Brauhaus Kelheim",day:16,lat:48.917,lng:11.873,desc:"Schneider Weisse Heimat · Biergarten",addr:"Ludwigstraße 6, 93309 Kelheim",web:"https://www.schneider-weisse.de",tel:"+49 9441 3110"},
 ];
 
 // Packliste
@@ -195,13 +215,13 @@ const PACK_DATA = [
 // Restaurants (Listenansicht)
 const ESSEN_DATA = {
   highlights:[
-    {name:"Gasthof Zum Verkauften Großvater ⭐",day:"Tag 5 · Solnhofen",stars:"⭐⭐⭐",desc:"Legendäres Frühstück, böhmisch-fränkische Küche, Dino-Deko! Wirt Günther ist ein Original."},
-    {name:"Brauereigasthof Schneider ⭐",day:"Tag 15 · Essing",stars:"⭐⭐⭐",desc:"Privatbrauerei zwischen Fels und Fluss. Hauseigenes Bier, deftige Küche."},
-    {name:"Klosterschenke Weltenburg ⭐⭐",day:"Tag 16 · Kelheim",stars:"⭐⭐⭐",desc:"Dunkles Weltenburger im Biergarten – DAS Abschlussessen!"},
-    {name:"Hotel-Gasthof Zur Sonne Pappenheim",day:"Tag 4",stars:"⭐⭐",desc:"Gehobene fränkische Küche, Biergarten, Menüs mit regionalen Zutaten."},
-    {name:"Gasthof Zum Blauen Hecht Kipfenberg",day:"Tag 10",stars:"⭐⭐",desc:"Familienbetrieb mit bayerischer Gastlichkeit. Mo+Mi–Sa ab 17h, So ab 10h."},
-    {name:"Restaurant Hotel Die Gams",day:"Tag 11+12",stars:"⭐⭐",desc:"Regionale & internationale Küche, Perlhuhn wird gelobt, gutes Frühstücksbuffet."},
-    {name:"Zum Mühlenwirt Solnhofen",day:"Tag 5",stars:"⭐⭐",desc:"Biergarten an der Altmühl, fränkische Klassiker, auch vegetarisch. Google 4.7/5."}
+    {name:"Gasthof Zum Verkauften Großvater",day:"Tag 5 · Solnhofen",desc:"Legendäres Frühstück, böhmisch-fränkische Küche, Dino-Deko! Wirt Günther ist ein Original.",tel:"+49 9145 1294",addr:"Bahnhofstr. 12, 91807 Solnhofen"},
+    {name:"Brauereigasthof Schneider",day:"Tag 15 · Essing",desc:"Privatbrauerei zwischen Fels und Fluss. Hauseigenes Bier, deftige Küche.",tel:"+49 9442 2354",addr:"93309 Essing"},
+    {name:"Klosterschenke Weltenburg",day:"Tag 16 · Kelheim",desc:"Dunkles Weltenburger im Biergarten – DAS Abschlussessen!",tel:"+49 9441 6752",addr:"Asamstraße 32, 93333 Kelheim"},
+    {name:"Hotel-Gasthof Zur Sonne Pappenheim",day:"Tag 4",desc:"Gehobene fränkische Küche, Biergarten, Menüs mit regionalen Zutaten.",tel:"+49 9143 8310",addr:"Deisinger Str. 20, 91788 Pappenheim"},
+    {name:"Gasthof Zum Blauen Hecht Kipfenberg",day:"Tag 10",desc:"Familienbetrieb mit bayerischer Gastlichkeit. Mo+Mi–Sa ab 17h, So ab 10h.",tel:"+49 8465 607",addr:"Marktplatz 1, 85110 Kipfenberg"},
+    {name:"Restaurant Hotel Die Gams",day:"Tag 11+12",desc:"Regionale & internationale Küche, Perlhuhn wird gelobt, gutes Frühstücksbuffet.",tel:"+49 8461 2011",addr:"Hauptstraße 16, 92339 Beilngries"},
+    {name:"Zum Mühlenwirt Solnhofen",day:"Tag 5",desc:"Biergarten an der Altmühl, fränkische Klassiker, auch vegetarisch. Google 4.7/5.",tel:"",addr:"91807 Solnhofen"}
   ],
   trail:[
     {ico:"🥜",txt:"Nüsse & Trockenfrüchte – kalorienreich, leicht, haltbar"},
@@ -244,20 +264,21 @@ const TIPPS_DATA = [
   ]}
 ];
 
+// Felder: day, ort, name, preis, note, addr, web, tel
 const HOTELS_DATA = [
-  {day:1,ort:"Spielberg",name:"Gasthof Gentner",preis:"ab 94 € DZ",note:"Slowfood-zertifiziert",stars:"⭐⭐"},
-  {day:2,ort:"Auernheim",name:"Gasthof Zur Sonne",preis:"ab 70 € DZ",note:"Fränkische Küche, Biergarten",stars:"⭐⭐"},
-  {day:3,ort:"Treuchtlingen",name:"Gasthof Via Vita",preis:"ab 87 € DZ",note:"Zentral, nahe Therme",stars:"⭐⭐"},
-  {day:4,ort:"Pappenheim",name:"Hotel-Gasthof Zur Sonne",preis:"ab 90 € DZ",note:"Top Küche, Wellnessangebote",stars:"⭐⭐⭐"},
-  {day:5,ort:"Solnhofen",name:"Gasthof Verkaufter Großvater",preis:"ab 65 € DZ",note:"Dino-Deko, legendäres Frühstück – anfragen!",stars:"⭐⭐⭐"},
-  {day:6,ort:"Dollnstein",name:"Gasthof Zur Post",preis:"ab 70 € DZ",note:"Zentral, bürgerliche Küche",stars:"⭐⭐"},
-  {day:7,ort:"Eichstätt",name:"Hotel Café Fuchs",preis:"ab 66 € DZ",note:"2 Nächte (7+8), zentral",stars:"⭐⭐"},
-  {day:9,ort:"Walting/Pfünz",name:"Gasthof Pfünzer Hof",preis:"ab 70 € DZ",note:"Direkt am Weg",stars:"⭐⭐"},
-  {day:10,ort:"Kipfenberg",name:"Gasthof Zum Blauen Hecht",preis:"ab 80 € DZ",note:"Familienbetrieb, Angelgewässer",stars:"⭐⭐⭐"},
-  {day:11,ort:"Beilngries",name:"Hotel Die Gams",preis:"ab 116 € DZ",note:"2 Nächte (11+12), Spa House inkl.! seit 1794",stars:"⭐⭐⭐⭐"},
-  {day:13,ort:"Dietfurt",name:"Gasthof Meier Griesstetten",preis:"ab 78 € DZ",note:"Biergarten, Balkon",stars:"⭐⭐"},
-  {day:14,ort:"Riedenburg",name:"Tachensteiner Hof",preis:"ab 64 € DZ",note:"Frühstücksbuffet, ruhige Lage",stars:"⭐⭐"},
-  {day:15,ort:"Essing",name:"Brauereigasthof Schneider",preis:"ab 72 € DZ",note:"Privatbrauerei! anfragen",stars:"⭐⭐⭐"},
-  {day:16,ort:"Kelheim",name:"Pension Carlbauer",preis:"ab 56 € DZ",note:"Zentral, beliebt bei Wanderern",stars:"⭐⭐"}
+  {day:1,ort:"Spielberg",name:"Gasthof Gentner",preis:"ab 94 € DZ",note:"Slowfood-zertifiziert",addr:"Spielberg 15, 91710 Gunzenhausen",web:"https://gasthof-gentner.de",tel:"+49 9831 9700"},
+  {day:2,ort:"Auernheim",name:"Gasthof Zur Sonne",preis:"ab 70 € DZ",note:"Fränkische Küche, Biergarten",addr:"Auernheim 8, 91754 Ursheim",web:"",tel:"+49 9836 209"},
+  {day:3,ort:"Treuchtlingen",name:"Gasthof Via Vita",preis:"ab 87 € DZ",note:"Zentral, nahe Therme",addr:"Bahnhofstraße 7, 91757 Treuchtlingen",web:"",tel:"+49 9142 9500"},
+  {day:4,ort:"Pappenheim",name:"Hotel-Gasthof Zur Sonne",preis:"ab 90 € DZ",note:"Top Küche, Wellnessangebote",addr:"Deisinger Straße 20, 91788 Pappenheim",web:"https://www.sonne-pappenheim.de",tel:"+49 9143 8310"},
+  {day:5,ort:"Solnhofen",name:"Gasthof Verkaufter Großvater",preis:"ab 65 € DZ",note:"Dino-Deko, legendäres Frühstück – anfragen!",addr:"Bahnhofstr. 12, 91807 Solnhofen",web:"",tel:"+49 9145 1294"},
+  {day:6,ort:"Dollnstein",name:"Gasthof Zur Post",preis:"ab 70 € DZ",note:"Zentral, bürgerliche Küche",addr:"Poststraße 4, 91795 Dollnstein",web:"",tel:"+49 8422 267"},
+  {day:7,ort:"Eichstätt",name:"Hotel Café Fuchs",preis:"ab 66 € DZ",note:"2 Nächte (7+8), zentral",addr:"Ostenstraße 8, 85072 Eichstätt",web:"https://www.hotel-fuchs-eichstaett.de",tel:"+49 8421 6789"},
+  {day:9,ort:"Walting/Pfünz",name:"Gasthof Pfünzer Hof",preis:"ab 70 € DZ",note:"Direkt am Weg",addr:"Pfünz 5, 85131 Walting",web:"",tel:""},
+  {day:10,ort:"Kipfenberg",name:"Gasthof Zum Blauen Hecht",preis:"ab 80 € DZ",note:"Familienbetrieb, Angelgewässer",addr:"Marktplatz 1, 85110 Kipfenberg",web:"",tel:"+49 8465 607"},
+  {day:11,ort:"Beilngries",name:"Hotel Die Gams",preis:"ab 116 € DZ",note:"2 Nächte (11+12), Spa House inkl.! seit 1794",addr:"Hauptstraße 16, 92339 Beilngries",web:"https://www.diegams.de",tel:"+49 8461 2011"},
+  {day:13,ort:"Dietfurt",name:"Gasthof Meier Griesstetten",preis:"ab 78 € DZ",note:"Biergarten, Balkon",addr:"Griesstetten 15, 92345 Dietfurt",web:"",tel:""},
+  {day:14,ort:"Riedenburg",name:"Tachensteiner Hof",preis:"ab 64 € DZ",note:"Frühstücksbuffet, ruhige Lage",addr:"Tachenstein 1, 93339 Riedenburg",web:"",tel:""},
+  {day:15,ort:"Essing",name:"Brauereigasthof Schneider",preis:"ab 72 € DZ",note:"Privatbrauerei! anfragen",addr:"93309 Essing",web:"",tel:"+49 9442 2354"},
+  {day:16,ort:"Kelheim",name:"Pension Carlbauer",preis:"ab 56 € DZ",note:"Zentral, beliebt bei Wanderern",addr:"Altmühlstraße 2, 93309 Kelheim",web:"",tel:""},
 ];
 

@@ -118,12 +118,18 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 .filter-bar::-webkit-scrollbar{display:none}
 .f-btn{border:1.5px solid #d0ccc5;background:#fff;border-radius:14px;padding:5px 11px;font-size:.76rem;cursor:pointer;white-space:nowrap;color:#555;font-family:inherit;flex-shrink:0;transition:all .15s}
 .f-btn.on{background:#3a6b4a;border-color:#3a6b4a;color:#fff}
-.sight-c{background:#fff;border-radius:10px;margin:0 12px 8px;padding:11px;box-shadow:0 1px 4px rgba(0,0,0,.08);display:flex;gap:10px;align-items:flex-start}
+/* ── SIGHTS TAGES-HEADER ── */
+.sights-day-hdr{display:flex;align-items:center;gap:7px;padding:10px 12px 4px;flex-wrap:wrap}
+.sdh-num{background:#1e3a28;color:#fff;border-radius:6px;padding:2px 9px;font-size:.76rem;font-weight:700;flex-shrink:0}
+.sdh-route{font-size:.82rem;font-weight:700;color:#1e3a28;flex:1}
+.sdh-date{font-size:.71rem;color:#999}
+.sight-c{background:#fff;border-radius:10px;margin:0 12px 6px;padding:11px;box-shadow:0 1px 4px rgba(0,0,0,.08);display:flex;gap:10px;align-items:flex-start}
 .s-ico{font-size:1.5rem;flex-shrink:0;line-height:1.2}.s-info{flex:1}
 .s-name{font-weight:700;font-size:.86rem;line-height:1.2}
-.s-day{font-size:.71rem;color:#999;margin:1px 0}
-.s-desc{font-size:.8rem;color:#555;line-height:1.4;margin-top:3px}
-.s-stars{color:#f59e0b;font-size:.82rem;margin-top:2px}
+.s-desc{font-size:.8rem;color:#555;line-height:1.4;margin-top:3px;margin-bottom:2px}
+/* Leaflet popup Mindestbreite */
+.leaflet-popup-content{min-width:230px !important}
+.leaflet-popup-content h3{margin:0 0 5px;font-size:.92rem;line-height:1.25}
 
 /* ── PACKLISTE ─── */
 .pk-prog{margin:10px 12px;background:#fff;border-radius:10px;padding:11px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
@@ -146,7 +152,9 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 .food-sec-hdr{font-size:.78rem;color:#888;text-transform:uppercase;letter-spacing:.05em;font-weight:700;padding:10px 0 6px}
 .food-c{background:#fff;border-radius:10px;padding:11px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:7px}
 .food-name{font-weight:700;font-size:.86rem;color:#1e3a28}.food-day{font-size:.72rem;color:#999;margin:1px 0}
-.food-desc{font-size:.8rem;color:#555;line-height:1.4;margin-top:3px}.food-stars{color:#f59e0b;font-size:.82rem}
+.food-desc{font-size:.8rem;color:#555;line-height:1.4;margin-top:3px}
+.food-contact{font-size:.72rem;color:#2c5f8a;margin-top:3px}
+.food-contact a{color:#2c5f8a;text-decoration:none}
 .food-trail-item{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:1px solid #f0ede8;font-size:.82rem}
 .food-trail-item:last-child{border:none}.food-trail-item .fi{flex-shrink:0;font-size:1rem}
 .tip-c{background:#fff;border-radius:10px;margin:0 12px 8px;padding:12px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
@@ -210,11 +218,40 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 .pp-badge.price{background:#fef3e2;color:#7a4a10}
 .pp-badge.time{background:#e8f0f8;color:#1a4a7a}
 .pp-badge.day{background:#f0ede8;color:#666}
+.pp-detail{font-size:.72rem;color:#555;margin-top:4px}
+.pp-detail a{color:#2c5f8a;text-decoration:none}
 
 /* ── FILTER LIST BADGES ── */
 .fl-badge{background:#ebebeb;color:#555;border-radius:4px;padding:1px 6px;font-size:.67rem}
 .fl-badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
-.fl-stars{color:#f59e0b;font-size:.75rem;margin-left:2px}
+.fl-sub{font-size:.7rem;color:#888;margin-top:3px}
+
+/* ── STAGE PANEL CONTACT ── */
+.spd-contact{font-size:.71rem;color:#2c5f8a;margin-top:3px}
+.spd-contact a{color:#2c5f8a;text-decoration:none}
+
+/* ── INFO TABELLE ── */
+.info-tbl{width:100%;border-collapse:collapse;margin:5px 0;font-size:.76rem}
+.info-tbl tr{border-bottom:1px solid #f5f2ee}
+.info-tbl tr:last-child{border-bottom:none}
+.info-tbl td{padding:3px 4px;vertical-align:top;line-height:1.35}
+.itl{color:#999;white-space:nowrap;padding-right:8px;width:1%;font-size:.72rem}
+.info-tbl a{color:#2c5f8a;text-decoration:none}
+.maps-addr{color:#2c5f8a;text-decoration:none;cursor:pointer}
+.maps-addr:hover{text-decoration:underline}
+
+/* ── MAPS SHEET ── */
+.maps-sheet{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.45);display:none;align-items:flex-end}
+.maps-sheet.open{display:flex}
+.maps-sheet-inner{background:#f2f1f6;border-radius:14px 14px 0 0;width:100%;padding:12px 16px 32px;animation:slideUp .25s ease}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.maps-sheet-title{font-size:.75rem;color:#888;text-align:center;margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.maps-sheet-name{font-size:.9rem;font-weight:700;color:#1e3a28;text-align:center;margin-bottom:14px}
+.maps-sheet-btns{display:flex;flex-direction:column;gap:8px}
+.maps-btn{display:block;width:100%;padding:14px;border-radius:12px;border:none;font-size:.92rem;font-family:inherit;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;box-sizing:border-box}
+.maps-btn.apple{background:#fff;color:#1c1c1e}
+.maps-btn.google{background:#fff;color:#1c1c1e}
+.maps-btn.cancel{background:#e8e8ed;color:#3a3a3c;margin-top:4px}
 
 /* ── MAP LEGEND ── */
 #map-legend{position:absolute;bottom:44px;right:10px;z-index:950}

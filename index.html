@@ -138,12 +138,18 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 .filter-bar::-webkit-scrollbar{display:none}
 .f-btn{border:1.5px solid #d0ccc5;background:#fff;border-radius:14px;padding:5px 11px;font-size:.76rem;cursor:pointer;white-space:nowrap;color:#555;font-family:inherit;flex-shrink:0;transition:all .15s}
 .f-btn.on{background:#3a6b4a;border-color:#3a6b4a;color:#fff}
-.sight-c{background:#fff;border-radius:10px;margin:0 12px 8px;padding:11px;box-shadow:0 1px 4px rgba(0,0,0,.08);display:flex;gap:10px;align-items:flex-start}
+/* ── SIGHTS TAGES-HEADER ── */
+.sights-day-hdr{display:flex;align-items:center;gap:7px;padding:10px 12px 4px;flex-wrap:wrap}
+.sdh-num{background:#1e3a28;color:#fff;border-radius:6px;padding:2px 9px;font-size:.76rem;font-weight:700;flex-shrink:0}
+.sdh-route{font-size:.82rem;font-weight:700;color:#1e3a28;flex:1}
+.sdh-date{font-size:.71rem;color:#999}
+.sight-c{background:#fff;border-radius:10px;margin:0 12px 6px;padding:11px;box-shadow:0 1px 4px rgba(0,0,0,.08);display:flex;gap:10px;align-items:flex-start}
 .s-ico{font-size:1.5rem;flex-shrink:0;line-height:1.2}.s-info{flex:1}
 .s-name{font-weight:700;font-size:.86rem;line-height:1.2}
-.s-day{font-size:.71rem;color:#999;margin:1px 0}
-.s-desc{font-size:.8rem;color:#555;line-height:1.4;margin-top:3px}
-.s-stars{color:#f59e0b;font-size:.82rem;margin-top:2px}
+.s-desc{font-size:.8rem;color:#555;line-height:1.4;margin-top:3px;margin-bottom:2px}
+/* Leaflet popup Mindestbreite */
+.leaflet-popup-content{min-width:230px !important}
+.leaflet-popup-content h3{margin:0 0 5px;font-size:.92rem;line-height:1.25}
 
 /* ── PACKLISTE ─── */
 .pk-prog{margin:10px 12px;background:#fff;border-radius:10px;padding:11px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
@@ -166,7 +172,9 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 .food-sec-hdr{font-size:.78rem;color:#888;text-transform:uppercase;letter-spacing:.05em;font-weight:700;padding:10px 0 6px}
 .food-c{background:#fff;border-radius:10px;padding:11px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:7px}
 .food-name{font-weight:700;font-size:.86rem;color:#1e3a28}.food-day{font-size:.72rem;color:#999;margin:1px 0}
-.food-desc{font-size:.8rem;color:#555;line-height:1.4;margin-top:3px}.food-stars{color:#f59e0b;font-size:.82rem}
+.food-desc{font-size:.8rem;color:#555;line-height:1.4;margin-top:3px}
+.food-contact{font-size:.72rem;color:#2c5f8a;margin-top:3px}
+.food-contact a{color:#2c5f8a;text-decoration:none}
 .food-trail-item{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:1px solid #f0ede8;font-size:.82rem}
 .food-trail-item:last-child{border:none}.food-trail-item .fi{flex-shrink:0;font-size:1rem}
 .tip-c{background:#fff;border-radius:10px;margin:0 12px 8px;padding:12px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
@@ -230,11 +238,40 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 .pp-badge.price{background:#fef3e2;color:#7a4a10}
 .pp-badge.time{background:#e8f0f8;color:#1a4a7a}
 .pp-badge.day{background:#f0ede8;color:#666}
+.pp-detail{font-size:.72rem;color:#555;margin-top:4px}
+.pp-detail a{color:#2c5f8a;text-decoration:none}
 
 /* ── FILTER LIST BADGES ── */
 .fl-badge{background:#ebebeb;color:#555;border-radius:4px;padding:1px 6px;font-size:.67rem}
 .fl-badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
-.fl-stars{color:#f59e0b;font-size:.75rem;margin-left:2px}
+.fl-sub{font-size:.7rem;color:#888;margin-top:3px}
+
+/* ── STAGE PANEL CONTACT ── */
+.spd-contact{font-size:.71rem;color:#2c5f8a;margin-top:3px}
+.spd-contact a{color:#2c5f8a;text-decoration:none}
+
+/* ── INFO TABELLE ── */
+.info-tbl{width:100%;border-collapse:collapse;margin:5px 0;font-size:.76rem}
+.info-tbl tr{border-bottom:1px solid #f5f2ee}
+.info-tbl tr:last-child{border-bottom:none}
+.info-tbl td{padding:3px 4px;vertical-align:top;line-height:1.35}
+.itl{color:#999;white-space:nowrap;padding-right:8px;width:1%;font-size:.72rem}
+.info-tbl a{color:#2c5f8a;text-decoration:none}
+.maps-addr{color:#2c5f8a;text-decoration:none;cursor:pointer}
+.maps-addr:hover{text-decoration:underline}
+
+/* ── MAPS SHEET ── */
+.maps-sheet{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.45);display:none;align-items:flex-end}
+.maps-sheet.open{display:flex}
+.maps-sheet-inner{background:#f2f1f6;border-radius:14px 14px 0 0;width:100%;padding:12px 16px 32px;animation:slideUp .25s ease}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.maps-sheet-title{font-size:.75rem;color:#888;text-align:center;margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.maps-sheet-name{font-size:.9rem;font-weight:700;color:#1e3a28;text-align:center;margin-bottom:14px}
+.maps-sheet-btns{display:flex;flex-direction:column;gap:8px}
+.maps-btn{display:block;width:100%;padding:14px;border-radius:12px;border:none;font-size:.92rem;font-family:inherit;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;box-sizing:border-box}
+.maps-btn.apple{background:#fff;color:#1c1c1e}
+.maps-btn.google{background:#fff;color:#1c1c1e}
+.maps-btn.cancel{background:#e8e8ed;color:#3a3a3c;margin-top:4px}
 
 /* ── MAP LEGEND ── */
 #map-legend{position:absolute;bottom:44px;right:10px;z-index:950}
@@ -576,40 +613,60 @@ const STAGES = [
 ];
 
 // Sehenswürdigkeiten
+// Felder: cat, ico, name, day, price, open, desc, lat, lng, addr, web, tel
 const SIGHTS = [
-  {cat:"dino",ico:"🦕",name:"Museum Solnhofen",stars:"⭐⭐⭐",day:5,price:"~6 €",open:"10–17 Uhr",desc:"3 originale Archaeopteryx-Skelette + Sciurumimus. Absolutes Highlight!",lat:48.8892,lng:11.0396},
-  {cat:"dino",ico:"🔨",name:"Hobbysteinbruch Solnhofen",stars:"⭐⭐⭐",day:5,price:"~9 € Kombi",open:"10–17 Uhr",desc:"Selbst Fossilien klopfen! Werkzeug leihbar.",lat:48.888,lng:11.035},
-  {cat:"dino",ico:"🦖",name:"Jura-Museum Willibaldsburg",stars:"⭐⭐⭐",day:8,price:"~6 €",open:"10–17 Uhr",desc:"Archaeopteryx-Original, Juravenator, Korallenriff-Aquarium auf der Burg.",lat:48.8893,lng:11.1804},
-  {cat:"burg",ico:"🏰",name:"Burg Pappenheim",stars:"⭐⭐",day:4,price:"frei",open:"tägl.",desc:"Ruine mit Museum & Kräutergarten, Panoramablick.",lat:48.9268,lng:10.9700},
-  {cat:"burg",ico:"🏰",name:"Burg Kipfenberg",stars:"⭐⭐",day:10,price:"inkl.",open:"tägl.",desc:"Römer- & Bajuwarenmuseum + Geografische Mitte Bayerns!",lat:48.9744,lng:11.3670},
-  {cat:"burg",ico:"🏰",name:"Burg Prunn",stars:"⭐⭐⭐",day:15,price:"~4 €",open:"ab 9h",desc:"Nibelungenlied-Handschrift C hier gefunden! Postkarten-Burg auf Kalkfelsen.",lat:48.9490,lng:11.7413},
-  {cat:"burg",ico:"🦅",name:"Rosenburg & Falkenhof",stars:"⭐⭐",day:14,price:"~8 €",open:"saisonal",desc:"Mittelalterliche Burg mit Greifvogel-Flugshow.",lat:48.9875,lng:11.6718},
-  {cat:"therm",ico:"♨️",name:"Altmühltherme Treuchtlingen",stars:"⭐⭐⭐",day:3,price:"~29 €",open:"tägl.",desc:"Heilwasser aus 800 m Tiefe, Saunalandschaft – nur 700 m vom Bahnhof!",lat:48.9569,lng:10.9108},
-  {cat:"therm",ico:"🛁",name:"Hotel Die Gams – Spa House",stars:"⭐⭐⭐",day:12,price:"inkl.",open:"tägl.",desc:"Indoor-Pool, Sauna, Dampfbad, Infrarot, Wasserbetten – alles inklusive.",lat:49.0334,lng:11.4758},
-  {cat:"natur",ico:"🗿",name:"Zwölf Apostel",stars:"⭐⭐⭐",day:6,price:"frei",open:"immer",desc:"Spektakuläre Kalksteinfelsen – Highlight der schönsten Etappe!",lat:48.878,lng:11.050},
-  {cat:"natur",ico:"⛰️",name:"Weltenburger Enge",stars:"⭐⭐⭐",day:16,price:"frei",open:"immer",desc:"Donaudurchbruch mit 70 m Felswänden – UNESCO-Welterbe-Kandidat.",lat:48.9048,lng:11.7887},
-  {cat:"natur",ico:"🦇",name:"Tropfsteinhöhle Schulerloch",stars:"⭐⭐",day:15,price:"~6 €",open:"Führungen",desc:"Schauhöhle mit Tropfsteinformationen, Führungen ~40 Min.",lat:48.9557,lng:11.7212},
-  {cat:"natur",ico:"🦇",name:"Arndthöhle Kipfenberg",stars:"⭐⭐",day:10,price:"frei",open:"immer",desc:"Tropfsteinhöhle direkt am Wanderweg.",lat:48.960,lng:11.370},
-  {cat:"natur",ico:"🌊",name:"Steinerne Rinne Wolfsbronn",stars:"⭐⭐",day:2,price:"frei",open:"immer",desc:"Naturdenkmal – Bach fließt auf Kalktuffdamm bergaufwärts!",lat:49.010,lng:10.790},
-  {cat:"natur",ico:"🦶",name:"Barfußpark Dietfurt",stars:"⭐",day:13,price:"frei",open:"immer",desc:"Sinneserlebnis für müde Wanderfüße.",lat:49.0758,lng:11.5856},
-  {cat:"kultur",ico:"⛪",name:"Kloster Weltenburg",stars:"⭐⭐⭐",day:16,price:"frei",open:"tägl.",desc:"Älteste Klosterbrauerei der Welt (seit 1050!). Biergarten an der Donau.",lat:48.9048,lng:11.7887},
-  {cat:"kultur",ico:"🏛️",name:"Befreiungshalle Kelheim",stars:"⭐⭐",day:16,price:"~4 €",open:"tägl.",desc:"Monumentalbau auf dem Michelsberg von Leo von Klenze.",lat:48.9121,lng:11.8698},
-  {cat:"kultur",ico:"🌉",name:"Tatzlwurm-Holzbrücke Essing",stars:"⭐⭐",day:15,price:"frei",open:"immer",desc:"Zweitlängste Holzbrücke Europas.",lat:48.9462,lng:11.7582},
-  {cat:"kultur",ico:"🎨",name:"Museum für Konkrete Kunst",stars:"⭐⭐",day:8,price:"~5 €",open:"Di–So",desc:"Mit Skulpturengarten in Eichstätt.",lat:48.8920,lng:11.1800},
-  {cat:"kultur",ico:"💎",name:"Kristallmuseum Riedenburg",stars:"⭐",day:14,price:"~5 €",open:"tägl.",desc:"Größte Bergkristallgruppe der Welt.",lat:48.9870,lng:11.6750}
+  // ── Dino ──
+  {cat:"dino",ico:"🦕",name:"Museum Solnhofen",day:5,price:"~6 €",open:"Di–So 10–17 Uhr",desc:"3 originale Archaeopteryx-Skelette + Sciurumimus. Absolutes Highlight!",lat:48.8892,lng:11.0396,addr:"Bahnhofstr. 8, 91807 Solnhofen",web:"https://museum-solnhofen.de",tel:"+49 9145 1294"},
+  {cat:"dino",ico:"🔨",name:"Hobbysteinbruch Solnhofen",day:5,price:"~9 € Kombi",open:"Di–So 10–17 Uhr",desc:"Selbst Fossilien klopfen! Werkzeug leihbar.",lat:48.888,lng:11.035,addr:"91807 Solnhofen",web:"https://museum-solnhofen.de",tel:"+49 9145 1294"},
+  {cat:"dino",ico:"🦖",name:"Jura-Museum Willibaldsburg",day:8,price:"~6 €",open:"Di–So 10–17 Uhr",desc:"Archaeopteryx-Original, Juravenator, Korallenriff-Aquarium auf der Burg.",lat:48.8893,lng:11.1804,addr:"Burgstraße 19, 85072 Eichstätt",web:"https://www.jura-museum.de",tel:"+49 8421 2956"},
+  {cat:"dino",ico:"🦖",name:"Dinosaurier Museum Denkendorf",day:12,price:"~8 €",open:"tägl. 10–18 Uhr",desc:"Größtes privates Dino-Museum Deutschlands! 10 Originalskelette. Opt. per Bus von Beilngries.",lat:48.9300,lng:11.4900,addr:"85132 Schernfeld-Denkendorf",web:"https://www.dinosaurier-museum.de",tel:"+49 8422 8895"},
+  // ── Burg ──
+  {cat:"burg",ico:"🏰",name:"Burg Pappenheim",day:4,price:"frei",open:"tägl.",desc:"Ruine mit Museum & Kräutergarten, Panoramablick.",lat:48.9268,lng:10.9700,addr:"Zur Burg, 91788 Pappenheim",web:"https://www.pappenheim.de",tel:"+49 9143 606227"},
+  {cat:"burg",ico:"🏰",name:"Burg Kipfenberg",day:10,price:"inkl.",open:"tägl.",desc:"Römer- & Bajuwarenmuseum + Geografische Mitte Bayerns!",lat:48.9744,lng:11.3670,addr:"85110 Kipfenberg",web:"https://www.kipfenberg.de",tel:"+49 8465 607"},
+  {cat:"burg",ico:"🏰",name:"Burg Prunn",day:15,price:"~4 €",open:"ab 9h",desc:"Nibelungenlied-Handschrift C hier gefunden! Postkarten-Burg auf Kalkfelsen.",lat:48.9490,lng:11.7413,addr:"Burg 1, 93339 Riedenburg",web:"https://www.schloesser.bayern.de",tel:"+49 9442 3323"},
+  {cat:"burg",ico:"🦅",name:"Rosenburg & Falkenhof",day:14,price:"~8 €",open:"saisonal",desc:"Mittelalterliche Burg mit Greifvogel-Flugshow.",lat:48.9875,lng:11.6718,addr:"Rosenburg 1, 93339 Riedenburg",web:"https://www.rosenburg.de",tel:"+49 9442 2552"},
+  // ── Therm ──
+  {cat:"therm",ico:"♨️",name:"Altmühltherme Treuchtlingen",day:3,price:"~29 €",open:"tägl.",desc:"Heilwasser aus 800 m Tiefe, Saunalandschaft – nur 700 m vom Bahnhof!",lat:48.9569,lng:10.9108,addr:"Thermenallee 1, 91757 Treuchtlingen",web:"https://www.altmuehltherme.de",tel:"+49 9142 96060"},
+  {cat:"therm",ico:"🛁",name:"Hotel Die Gams – Spa House",day:12,price:"inkl.",open:"tägl.",desc:"Indoor-Pool, Sauna, Dampfbad, Infrarot, Wasserbetten – alles inklusive.",lat:49.0334,lng:11.4758,addr:"Hauptstraße 16, 92339 Beilngries",web:"https://www.diegams.de",tel:"+49 8461 2011"},
+  // ── Natur ──
+  {cat:"natur",ico:"🌊",name:"Altmühlsee",day:1,price:"frei",open:"immer",desc:"Erholungsgebiet mit Wanderwegen, Strand und Vogelschutzinseln. Schöner Auftakt der Tour.",lat:49.133,lng:10.725,addr:"Altmühlsee, 91710 Gunzenhausen",web:"https://www.altmuehlsee.de",tel:""},
+  {cat:"natur",ico:"⛰️",name:"Hahnenkamm",day:1,price:"frei",open:"immer",desc:"Bewaldeter Höhenrücken südlich von Gunzenhausen mit Panoramablicken über das Altmühltal.",lat:49.040,lng:10.730,addr:"Hahnenkamm, 91730 Wilburgstetten",web:"",tel:""},
+  {cat:"natur",ico:"👁️",name:"Aussichtspunkt Gelber Berg",day:2,price:"frei",open:"immer",desc:"Panoramablick über das Altmühltal und die Hahnenkamm-Region. Einer der schönsten Aussichtspunkte.",lat:49.020,lng:10.795,addr:"bei Wolfsbronn, 91750 Unterschwaningen",web:"",tel:""},
+  {cat:"natur",ico:"🌊",name:"Steinerne Rinne Wolfsbronn",day:2,price:"frei",open:"immer",desc:"Naturdenkmal – Bach fließt auf Kalktuffdamm bergaufwärts!",lat:49.010,lng:10.790,addr:"Wolfsbronn, 91750 Unterschwaningen",web:"",tel:""},
+  {cat:"natur",ico:"🗿",name:"Zwölf Apostel",day:6,price:"frei",open:"immer",desc:"Spektakuläre Kalksteinfelsen – Highlight der schönsten Etappe!",lat:48.878,lng:11.050,addr:"bei Dollnstein, 91795",web:"",tel:""},
+  {cat:"natur",ico:"🌿",name:"Wacholderheiden Dollnstein",day:6,price:"frei",open:"immer",desc:"Naturschutzgebiet mit seltenen Wacholderbeständen und artenreichen Halbtrockenrasen.",lat:48.882,lng:11.055,addr:"bei Dollnstein, 91795",web:"",tel:""},
+  {cat:"natur",ico:"🪨",name:"Burgsteinfelsen Eichstätt",day:7,price:"frei",open:"immer",desc:"Markanter Kalkfelsen mit Panoramablick über Eichstätt. Bestes Fotomotiv vor der Stadtkulisse.",lat:48.893,lng:11.178,addr:"Burgsteig, 85072 Eichstätt",web:"",tel:""},
+  {cat:"natur",ico:"🦣",name:"Mammuthöhle Buchenhüll",day:9,price:"frei",open:"immer",desc:"Natürliche Höhle mit Mammutknochenfunden bei Eichstätt. Historisch bedeutsame Fundstätte.",lat:48.913,lng:11.268,addr:"Buchenhüll, 85072 Eichstätt",web:"",tel:""},
+  {cat:"natur",ico:"⛰️",name:"Weltenburger Enge",day:16,price:"frei",open:"immer",desc:"Donaudurchbruch mit 70 m Felswänden – UNESCO-Welterbe-Kandidat.",lat:48.9048,lng:11.7887,addr:"Donaudurchbruch, 93333 Kelheim",web:"https://www.naturpark-altmuehltal.de",tel:""},
+  {cat:"natur",ico:"🦇",name:"Tropfsteinhöhle Schulerloch",day:15,price:"~6 €",open:"Führungen",desc:"Schauhöhle mit Tropfsteinformationen, Führungen ~40 Min.",lat:48.9557,lng:11.7212,addr:"93309 Essing",web:"https://www.schulerloch.de",tel:"+49 9442 9159"},
+  {cat:"natur",ico:"🦇",name:"Arndthöhle Kipfenberg",day:10,price:"frei",open:"immer",desc:"Tropfsteinhöhle direkt am Wanderweg.",lat:48.960,lng:11.370,addr:"bei Kipfenberg, 85110",web:"",tel:""},
+  {cat:"natur",ico:"🦶",name:"Barfußpark Dietfurt",day:13,price:"frei",open:"immer",desc:"Sinneserlebnis für müde Wanderfüße.",lat:49.0758,lng:11.5856,addr:"Freiung, 92345 Dietfurt",web:"https://www.dietfurt.de",tel:""},
+  // ── Kultur ──
+  {cat:"kultur",ico:"🏛️",name:"Archäologisches Museum Gunzenhausen",day:1,price:"~3 €",open:"Di–So 10–17 Uhr",desc:"Vor- und Frühgeschichte der Region, römische Funde und Ausstellungen zur Altmühltal-Geschichte.",lat:49.1138,lng:10.7543,addr:"Schlossplatz 4, 91710 Gunzenhausen",web:"https://www.gunzenhausen.de",tel:"+49 9831 508212"},
+  {cat:"kultur",ico:"🏘️",name:"Historische Altstadt Pappenheim",day:4,price:"frei",open:"immer",desc:"Mittelalterliches Stadtbild mit Fachwerkhäusern und historischem Rathaus.",lat:48.9268,lng:10.970,addr:"Marktplatz, 91788 Pappenheim",web:"https://www.pappenheim.de",tel:""},
+  {cat:"kultur",ico:"🏛️",name:"Römerkastell Pfünz (Vetoniana)",day:9,price:"frei",open:"immer",desc:"Gut erhaltene Mauerreste des Limes-Kastells. Opt. Abstecher +1,5 km ab Wanderweg.",lat:48.948,lng:11.344,addr:"Pfünz, 85131 Walting",web:"https://www.limes-welterbe.de",tel:""},
+  {cat:"kultur",ico:"🏰",name:"Altstadt Beilngries",day:11,price:"frei",open:"immer",desc:"Vollständig erhaltene mittelalterliche Stadtmauer mit 7 Türmen und 2 Toren.",lat:49.0333,lng:11.4749,addr:"Hauptstraße, 92339 Beilngries",web:"https://www.beilngries.de",tel:""},
+  {cat:"kultur",ico:"🚗",name:"Technikmuseum Kratzmühle",day:11,price:"~6 €",open:"Sa+So 10–17 Uhr",desc:"Historische Mühle mit Oldtimer-Sammlung und Technikausstellungen.",lat:49.014,lng:11.430,addr:"Kratzmühle 1, 85110 Kinding",web:"https://www.kratzmuehle.de",tel:"+49 8467 305"},
+  {cat:"kultur",ico:"🎨",name:"Museum für Konkrete Kunst",day:8,price:"~5 €",open:"Di–So",desc:"Mit Skulpturengarten in Eichstätt.",lat:48.8920,lng:11.1800,addr:"Residenzplatz 3, 85072 Eichstätt",web:"https://www.mkk-eichstaett.de",tel:"+49 8421 8980"},
+  {cat:"kultur",ico:"💎",name:"Kristallmuseum Riedenburg",day:14,price:"~5 €",open:"tägl.",desc:"Größte Bergkristallgruppe der Welt.",lat:48.9870,lng:11.6750,addr:"Rathausstraße 2, 93339 Riedenburg",web:"https://www.riedenburg.de",tel:"+49 9442 905440"},
+  {cat:"kultur",ico:"⛪",name:"Kloster Weltenburg",day:16,price:"frei",open:"tägl.",desc:"Älteste Klosterbrauerei der Welt (seit 1050!). Biergarten an der Donau.",lat:48.9048,lng:11.7887,addr:"Asamstraße 32, 93333 Kelheim",web:"https://www.kloster-weltenburg.de",tel:"+49 9441 6752"},
+  {cat:"kultur",ico:"🚢",name:"Schifffahrt Weltenburg → Kelheim",day:16,price:"~6 €",open:"April–Okt tägl.",desc:"Spektakuläre Bootsfahrt durch den Donaudurchbruch. Ca. 30 Min., stündlich ab Kloster Weltenburg.",lat:48.9050,lng:11.7900,addr:"Kloster Weltenburg, 93333 Kelheim",web:"https://www.schifffahrt-kelheim.de",tel:"+49 9441 2235"},
+  {cat:"kultur",ico:"🏛️",name:"Befreiungshalle Kelheim",day:16,price:"~4 €",open:"tägl.",desc:"Monumentalbau auf dem Michelsberg von Leo von Klenze.",lat:48.9121,lng:11.8698,addr:"Befreiungshallestraße 3, 93309 Kelheim",web:"https://www.schloesser.bayern.de",tel:"+49 9441 68207"},
+  {cat:"kultur",ico:"🌉",name:"Tatzlwurm-Holzbrücke Essing",day:15,price:"frei",open:"immer",desc:"Zweitlängste Holzbrücke Europas.",lat:48.9462,lng:11.7582,addr:"93309 Essing",web:"",tel:""},
 ];
 
 // Restaurants (Karten-Layer)
+// Felder: name, day, lat, lng, desc, addr, web, tel
 const RESTAURANTS = [
-  {name:"Gasthof Verkaufter Großvater ⭐",day:5,lat:48.8892,lng:11.0393,desc:"Legendäres Frühstück · böhmisch-fränkische Küche · Dino-Deko"},
-  {name:"Zum Mühlenwirt Solnhofen",day:5,lat:48.887,lng:11.037,desc:"Biergarten an der Altmühl · Google 4.7/5"},
-  {name:"Hotel-Gasthof Zur Sonne Pappenheim",day:4,lat:48.926,lng:10.970,desc:"Gehobene fränkische Küche · Biergarten"},
-  {name:"Braugasthof Trompeter Eichstätt",day:7,lat:48.892,lng:11.179,desc:"Hauseigenes Bier · deftige bayerische Küche"},
-  {name:"Gasthof Zum Blauen Hecht",day:10,lat:48.974,lng:11.367,desc:"Familienbetrieb · bayerische Gastlichkeit · ab 17h"},
-  {name:"Restaurant Hotel Die Gams",day:11,lat:49.033,lng:11.476,desc:"Regionale & int. Küche · Perlhuhn · Frühstücksbuffet"},
-  {name:"Brauereigasthof Schneider ⭐",day:15,lat:48.946,lng:11.754,desc:"Privatbrauerei · zwischen Fels & Fluss · Hausbier!"},
-  {name:"Klosterschenke Weltenburg ⭐⭐",day:16,lat:48.905,lng:11.789,desc:"Älteste Klosterbrauerei · Dunkles Bier im Biergarten"},
-  {name:"Weisses Brauhaus Kelheim",day:16,lat:48.917,lng:11.873,desc:"Schneider Weisse Heimat · Biergarten"}
+  {name:"Gasthof Verkaufter Großvater",day:5,lat:48.8892,lng:11.0393,desc:"Legendäres Frühstück · böhmisch-fränkische Küche · Dino-Deko",addr:"Bahnhofstr. 12, 91807 Solnhofen",web:"",tel:"+49 9145 1294"},
+  {name:"Zum Mühlenwirt Solnhofen",day:5,lat:48.887,lng:11.037,desc:"Biergarten an der Altmühl · Google 4.7/5",addr:"91807 Solnhofen",web:"",tel:""},
+  {name:"Hotel-Gasthof Zur Sonne Pappenheim",day:4,lat:48.926,lng:10.970,desc:"Gehobene fränkische Küche · Biergarten",addr:"Deisinger Straße 20, 91788 Pappenheim",web:"https://www.sonne-pappenheim.de",tel:"+49 9143 8310"},
+  {name:"Braugasthof Trompeter Eichstätt",day:7,lat:48.892,lng:11.179,desc:"Hauseigenes Bier · deftige bayerische Küche",addr:"Ostenstraße 3, 85072 Eichstätt",web:"",tel:"+49 8421 1295"},
+  {name:"Gasthof Zum Blauen Hecht",day:10,lat:48.974,lng:11.367,desc:"Familienbetrieb · bayerische Gastlichkeit · ab 17h",addr:"Marktplatz 1, 85110 Kipfenberg",web:"",tel:"+49 8465 607"},
+  {name:"Restaurant Hotel Die Gams",day:11,lat:49.033,lng:11.476,desc:"Regionale & int. Küche · Perlhuhn · Frühstücksbuffet",addr:"Hauptstraße 16, 92339 Beilngries",web:"https://www.diegams.de",tel:"+49 8461 2011"},
+  {name:"Brauereigasthof Schneider",day:15,lat:48.946,lng:11.754,desc:"Privatbrauerei · zwischen Fels & Fluss · Hausbier!",addr:"93309 Essing",web:"",tel:"+49 9442 2354"},
+  {name:"Klosterschenke Weltenburg",day:16,lat:48.905,lng:11.789,desc:"Älteste Klosterbrauerei · Dunkles Bier im Biergarten",addr:"Asamstraße 32, 93333 Kelheim",web:"https://www.kloster-weltenburg.de",tel:"+49 9441 6752"},
+  {name:"Weisses Brauhaus Kelheim",day:16,lat:48.917,lng:11.873,desc:"Schneider Weisse Heimat · Biergarten",addr:"Ludwigstraße 6, 93309 Kelheim",web:"https://www.schneider-weisse.de",tel:"+49 9441 3110"},
 ];
 
 // Packliste
@@ -665,13 +722,13 @@ const PACK_DATA = [
 // Restaurants (Listenansicht)
 const ESSEN_DATA = {
   highlights:[
-    {name:"Gasthof Zum Verkauften Großvater ⭐",day:"Tag 5 · Solnhofen",stars:"⭐⭐⭐",desc:"Legendäres Frühstück, böhmisch-fränkische Küche, Dino-Deko! Wirt Günther ist ein Original."},
-    {name:"Brauereigasthof Schneider ⭐",day:"Tag 15 · Essing",stars:"⭐⭐⭐",desc:"Privatbrauerei zwischen Fels und Fluss. Hauseigenes Bier, deftige Küche."},
-    {name:"Klosterschenke Weltenburg ⭐⭐",day:"Tag 16 · Kelheim",stars:"⭐⭐⭐",desc:"Dunkles Weltenburger im Biergarten – DAS Abschlussessen!"},
-    {name:"Hotel-Gasthof Zur Sonne Pappenheim",day:"Tag 4",stars:"⭐⭐",desc:"Gehobene fränkische Küche, Biergarten, Menüs mit regionalen Zutaten."},
-    {name:"Gasthof Zum Blauen Hecht Kipfenberg",day:"Tag 10",stars:"⭐⭐",desc:"Familienbetrieb mit bayerischer Gastlichkeit. Mo+Mi–Sa ab 17h, So ab 10h."},
-    {name:"Restaurant Hotel Die Gams",day:"Tag 11+12",stars:"⭐⭐",desc:"Regionale & internationale Küche, Perlhuhn wird gelobt, gutes Frühstücksbuffet."},
-    {name:"Zum Mühlenwirt Solnhofen",day:"Tag 5",stars:"⭐⭐",desc:"Biergarten an der Altmühl, fränkische Klassiker, auch vegetarisch. Google 4.7/5."}
+    {name:"Gasthof Zum Verkauften Großvater",day:"Tag 5 · Solnhofen",desc:"Legendäres Frühstück, böhmisch-fränkische Küche, Dino-Deko! Wirt Günther ist ein Original.",tel:"+49 9145 1294",addr:"Bahnhofstr. 12, 91807 Solnhofen"},
+    {name:"Brauereigasthof Schneider",day:"Tag 15 · Essing",desc:"Privatbrauerei zwischen Fels und Fluss. Hauseigenes Bier, deftige Küche.",tel:"+49 9442 2354",addr:"93309 Essing"},
+    {name:"Klosterschenke Weltenburg",day:"Tag 16 · Kelheim",desc:"Dunkles Weltenburger im Biergarten – DAS Abschlussessen!",tel:"+49 9441 6752",addr:"Asamstraße 32, 93333 Kelheim"},
+    {name:"Hotel-Gasthof Zur Sonne Pappenheim",day:"Tag 4",desc:"Gehobene fränkische Küche, Biergarten, Menüs mit regionalen Zutaten.",tel:"+49 9143 8310",addr:"Deisinger Str. 20, 91788 Pappenheim"},
+    {name:"Gasthof Zum Blauen Hecht Kipfenberg",day:"Tag 10",desc:"Familienbetrieb mit bayerischer Gastlichkeit. Mo+Mi–Sa ab 17h, So ab 10h.",tel:"+49 8465 607",addr:"Marktplatz 1, 85110 Kipfenberg"},
+    {name:"Restaurant Hotel Die Gams",day:"Tag 11+12",desc:"Regionale & internationale Küche, Perlhuhn wird gelobt, gutes Frühstücksbuffet.",tel:"+49 8461 2011",addr:"Hauptstraße 16, 92339 Beilngries"},
+    {name:"Zum Mühlenwirt Solnhofen",day:"Tag 5",desc:"Biergarten an der Altmühl, fränkische Klassiker, auch vegetarisch. Google 4.7/5.",tel:"",addr:"91807 Solnhofen"}
   ],
   trail:[
     {ico:"🥜",txt:"Nüsse & Trockenfrüchte – kalorienreich, leicht, haltbar"},
@@ -714,21 +771,22 @@ const TIPPS_DATA = [
   ]}
 ];
 
+// Felder: day, ort, name, preis, note, addr, web, tel
 const HOTELS_DATA = [
-  {day:1,ort:"Spielberg",name:"Gasthof Gentner",preis:"ab 94 € DZ",note:"Slowfood-zertifiziert",stars:"⭐⭐"},
-  {day:2,ort:"Auernheim",name:"Gasthof Zur Sonne",preis:"ab 70 € DZ",note:"Fränkische Küche, Biergarten",stars:"⭐⭐"},
-  {day:3,ort:"Treuchtlingen",name:"Gasthof Via Vita",preis:"ab 87 € DZ",note:"Zentral, nahe Therme",stars:"⭐⭐"},
-  {day:4,ort:"Pappenheim",name:"Hotel-Gasthof Zur Sonne",preis:"ab 90 € DZ",note:"Top Küche, Wellnessangebote",stars:"⭐⭐⭐"},
-  {day:5,ort:"Solnhofen",name:"Gasthof Verkaufter Großvater",preis:"ab 65 € DZ",note:"Dino-Deko, legendäres Frühstück – anfragen!",stars:"⭐⭐⭐"},
-  {day:6,ort:"Dollnstein",name:"Gasthof Zur Post",preis:"ab 70 € DZ",note:"Zentral, bürgerliche Küche",stars:"⭐⭐"},
-  {day:7,ort:"Eichstätt",name:"Hotel Café Fuchs",preis:"ab 66 € DZ",note:"2 Nächte (7+8), zentral",stars:"⭐⭐"},
-  {day:9,ort:"Walting/Pfünz",name:"Gasthof Pfünzer Hof",preis:"ab 70 € DZ",note:"Direkt am Weg",stars:"⭐⭐"},
-  {day:10,ort:"Kipfenberg",name:"Gasthof Zum Blauen Hecht",preis:"ab 80 € DZ",note:"Familienbetrieb, Angelgewässer",stars:"⭐⭐⭐"},
-  {day:11,ort:"Beilngries",name:"Hotel Die Gams",preis:"ab 116 € DZ",note:"2 Nächte (11+12), Spa House inkl.! seit 1794",stars:"⭐⭐⭐⭐"},
-  {day:13,ort:"Dietfurt",name:"Gasthof Meier Griesstetten",preis:"ab 78 € DZ",note:"Biergarten, Balkon",stars:"⭐⭐"},
-  {day:14,ort:"Riedenburg",name:"Tachensteiner Hof",preis:"ab 64 € DZ",note:"Frühstücksbuffet, ruhige Lage",stars:"⭐⭐"},
-  {day:15,ort:"Essing",name:"Brauereigasthof Schneider",preis:"ab 72 € DZ",note:"Privatbrauerei! anfragen",stars:"⭐⭐⭐"},
-  {day:16,ort:"Kelheim",name:"Pension Carlbauer",preis:"ab 56 € DZ",note:"Zentral, beliebt bei Wanderern",stars:"⭐⭐"}
+  {day:1,ort:"Spielberg",name:"Gasthof Gentner",preis:"ab 94 € DZ",note:"Slowfood-zertifiziert",addr:"Spielberg 15, 91710 Gunzenhausen",web:"https://gasthof-gentner.de",tel:"+49 9831 9700"},
+  {day:2,ort:"Auernheim",name:"Gasthof Zur Sonne",preis:"ab 70 € DZ",note:"Fränkische Küche, Biergarten",addr:"Auernheim 8, 91754 Ursheim",web:"",tel:"+49 9836 209"},
+  {day:3,ort:"Treuchtlingen",name:"Gasthof Via Vita",preis:"ab 87 € DZ",note:"Zentral, nahe Therme",addr:"Bahnhofstraße 7, 91757 Treuchtlingen",web:"",tel:"+49 9142 9500"},
+  {day:4,ort:"Pappenheim",name:"Hotel-Gasthof Zur Sonne",preis:"ab 90 € DZ",note:"Top Küche, Wellnessangebote",addr:"Deisinger Straße 20, 91788 Pappenheim",web:"https://www.sonne-pappenheim.de",tel:"+49 9143 8310"},
+  {day:5,ort:"Solnhofen",name:"Gasthof Verkaufter Großvater",preis:"ab 65 € DZ",note:"Dino-Deko, legendäres Frühstück – anfragen!",addr:"Bahnhofstr. 12, 91807 Solnhofen",web:"",tel:"+49 9145 1294"},
+  {day:6,ort:"Dollnstein",name:"Gasthof Zur Post",preis:"ab 70 € DZ",note:"Zentral, bürgerliche Küche",addr:"Poststraße 4, 91795 Dollnstein",web:"",tel:"+49 8422 267"},
+  {day:7,ort:"Eichstätt",name:"Hotel Café Fuchs",preis:"ab 66 € DZ",note:"2 Nächte (7+8), zentral",addr:"Ostenstraße 8, 85072 Eichstätt",web:"https://www.hotel-fuchs-eichstaett.de",tel:"+49 8421 6789"},
+  {day:9,ort:"Walting/Pfünz",name:"Gasthof Pfünzer Hof",preis:"ab 70 € DZ",note:"Direkt am Weg",addr:"Pfünz 5, 85131 Walting",web:"",tel:""},
+  {day:10,ort:"Kipfenberg",name:"Gasthof Zum Blauen Hecht",preis:"ab 80 € DZ",note:"Familienbetrieb, Angelgewässer",addr:"Marktplatz 1, 85110 Kipfenberg",web:"",tel:"+49 8465 607"},
+  {day:11,ort:"Beilngries",name:"Hotel Die Gams",preis:"ab 116 € DZ",note:"2 Nächte (11+12), Spa House inkl.! seit 1794",addr:"Hauptstraße 16, 92339 Beilngries",web:"https://www.diegams.de",tel:"+49 8461 2011"},
+  {day:13,ort:"Dietfurt",name:"Gasthof Meier Griesstetten",preis:"ab 78 € DZ",note:"Biergarten, Balkon",addr:"Griesstetten 15, 92345 Dietfurt",web:"",tel:""},
+  {day:14,ort:"Riedenburg",name:"Tachensteiner Hof",preis:"ab 64 € DZ",note:"Frühstücksbuffet, ruhige Lage",addr:"Tachenstein 1, 93339 Riedenburg",web:"",tel:""},
+  {day:15,ort:"Essing",name:"Brauereigasthof Schneider",preis:"ab 72 € DZ",note:"Privatbrauerei! anfragen",addr:"93309 Essing",web:"",tel:"+49 9442 2354"},
+  {day:16,ort:"Kelheim",name:"Pension Carlbauer",preis:"ab 56 € DZ",note:"Zentral, beliebt bei Wanderern",addr:"Altmühlstraße 2, 93309 Kelheim",web:"",tel:""},
 ];
 
 
@@ -736,6 +794,48 @@ const HOTELS_DATA = [
 
 <!-- App-Logik (inline) -->
 <script>
+// ═══════════════════════════════════════════════════
+// ① HELPERS: Maps-Sheet, Tabelle, Links
+// ═══════════════════════════════════════════════════
+
+document.body.insertAdjacentHTML('beforeend',
+  '<div id="maps-sheet" class="maps-sheet" onclick="if(event.target===this)closeMapsSheet()">' +
+    '<div class="maps-sheet-inner">' +
+      '<div class="maps-sheet-title">In Karte öffnen</div>' +
+      '<div class="maps-sheet-name"></div>' +
+      '<div class="maps-sheet-btns"></div>' +
+    '</div>' +
+  '</div>');
+
+function openMaps(el) {
+  const lat = el.dataset.lat, lng = el.dataset.lng;
+  const name = el.dataset.name || '';
+  const q = (lat && lng) ? `${lat},${lng}` : encodeURIComponent(name);
+  const sheet = document.getElementById('maps-sheet');
+  sheet.querySelector('.maps-sheet-name').textContent = name;
+  sheet.querySelector('.maps-sheet-btns').innerHTML =
+    `<a href="https://maps.apple.com/?q=${q}&z=16" class="maps-btn apple">🍎 Apple Karten</a>` +
+    `<a href="https://www.google.com/maps?q=${q}" target="_blank" class="maps-btn google">🗺️ Google Maps</a>` +
+    `<button onclick="closeMapsSheet()" class="maps-btn cancel">Abbrechen</button>`;
+  sheet.classList.add('open');
+  return false;
+}
+function closeMapsSheet() {
+  document.getElementById('maps-sheet').classList.remove('open');
+}
+function infoTable(rows) {
+  const r = rows.filter(([, v]) => v);
+  return r.length ? `<table class="info-tbl">${r.map(([l,v]) => `<tr><td class="itl">${l}</td><td>${v}</td></tr>`).join('')}</table>` : '';
+}
+function mapsAddr(lat, lng, name, addr) {
+  if (!addr) return '';
+  const nm = (name || '').replace(/"/g, '&quot;');
+  return `<a class="maps-addr" data-lat="${lat}" data-lng="${lng}" data-name="${nm}" onclick="openMaps(this);return false" href="#">${addr}</a>`;
+}
+function shortUrl(url) {
+  return url ? url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '') : '';
+}
+
 // ═══════════════════════════════════════════════════
 // ② COUNTDOWN
 // ═══════════════════════════════════════════════════
@@ -821,8 +921,10 @@ function setActiveStage(day){
 function initMap(){
   const map = L.map('the-map', {zoomControl:true}).setView([48.98, 11.30], 9);
   window._map = map;
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-    attribution:'© OpenStreetMap', maxZoom:18
+  // CartoDB Voyager – keine Referer-Restriktionen, sauber für PWA
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{
+    attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains:'abcd', maxZoom:19
   }).addTo(map);
 
   // Fix Leaflet popup X-button: remove href="#close" to prevent external-link dialog
@@ -869,13 +971,16 @@ function initMap(){
   SIGHTS.forEach(si => {
     L.marker([si.lat,si.lng],{icon:makeEmoji(si.ico,'#3a7d5e',32)})
      .bindPopup(
-       `<h3>${si.name}</h3>` +
-       `<div style="display:flex;gap:5px;flex-wrap:wrap;margin:5px 0">` +
-         `<span class="pp-badge day">Tag ${si.day}</span>` +
-         `<span class="pp-badge price">${si.price}</span>` +
-         `<span class="pp-badge time">${si.open}</span>` +
-       `</div>` +
-       `<p>${si.desc}</p>`
+       `<h3>${si.ico} ${si.name}</h3>` +
+       `<p style="font-size:.8rem;color:#555;margin:4px 0 6px">${si.desc}</p>` +
+       infoTable([
+         ['📅 Tag',    `Tag ${si.day}`],
+         ['💰 Preis',  si.price],
+         ['🕐 Öffnung',si.open],
+         ['📍 Adresse',mapsAddr(si.lat, si.lng, si.name, si.addr)],
+         ['📞 Tel',    si.tel ? `<a href="tel:${si.tel}">${si.tel}</a>` : ''],
+         ['🌐 Web',    si.web ? `<a href="${si.web}" target="_blank">${shortUrl(si.web)}</a>` : ''],
+       ]), {maxWidth:280}
      ).addTo(layers.sights);
   });
   layers.sights.addTo(map);
@@ -883,13 +988,18 @@ function initMap(){
   // Hotel layer — unified navy #2c5f8a, sz=32
   layers.hotels = L.layerGroup();
   STAGES.forEach(s => {
+    const hd = HOTELS_DATA.find(h => h.day === s.day);
     L.marker([s.lat, s.lng],{icon:makeEmoji('🏨','#2c5f8a',32)})
      .bindPopup(
-       `<h3>${s.hotel}</h3>` +
-       `<div style="display:flex;gap:5px;flex-wrap:wrap;margin:5px 0">` +
-         `<span class="pp-badge day">Tag ${s.day} · ${s.to}</span>` +
-       `</div>` +
-       `<p>${s.hotel_note}</p>`
+       `<h3>🏨 ${s.hotel}</h3>` +
+       infoTable([
+         ['📅 Tag',    `Tag ${s.day} · ${s.to}`],
+         ['💰 Preis',  hd ? hd.preis : ''],
+         ['📝 Notiz',  s.hotel_note],
+         ['📍 Adresse',hd ? mapsAddr(s.lat, s.lng, s.hotel, hd.addr) : ''],
+         ['📞 Tel',    hd && hd.tel ? `<a href="tel:${hd.tel}">${hd.tel}</a>` : ''],
+         ['🌐 Web',    hd && hd.web ? `<a href="${hd.web}" target="_blank">${shortUrl(hd.web)}</a>` : ''],
+       ]), {maxWidth:280}
      ).addTo(layers.hotels);
   });
   layers.hotels.addTo(map);
@@ -899,11 +1009,14 @@ function initMap(){
   RESTAURANTS.forEach(r => {
     L.marker([r.lat, r.lng],{icon:makeEmoji('🍽️','#b85c20',32)})
      .bindPopup(
-       `<h3>${r.name}</h3>` +
-       `<div style="display:flex;gap:5px;flex-wrap:wrap;margin:5px 0">` +
-         `<span class="pp-badge day">Tag ${r.day}</span>` +
-       `</div>` +
-       `<p>${r.desc}</p>`
+       `<h3>🍽️ ${r.name}</h3>` +
+       `<p style="font-size:.8rem;color:#555;margin:4px 0 6px">${r.desc}</p>` +
+       infoTable([
+         ['📅 Tag',    `Tag ${r.day}`],
+         ['📍 Adresse',mapsAddr(r.lat, r.lng, r.name, r.addr)],
+         ['📞 Tel',    r.tel ? `<a href="tel:${r.tel}">${r.tel}</a>` : ''],
+         ['🌐 Web',    r.web ? `<a href="${r.web}" target="_blank">${shortUrl(r.web)}</a>` : ''],
+       ]), {maxWidth:280}
      ).addTo(layers.restaurants);
   });
   layers.restaurants.addTo(map);
@@ -947,35 +1060,42 @@ function setFilter(type, btn){
 
   let html = '';
   if(type === 'sights'){
-    html = `<div class="fl-hdr">Sehenswürdigkeiten (${SIGHTS.length})</div>`;
-    html += SIGHTS.map(si =>
+    const sorted = [...SIGHTS].sort((a,b) => a.day - b.day);
+    html = `<div class="fl-hdr">Sehenswürdigkeiten (${sorted.length})</div>`;
+    html += sorted.map(si =>
       `<div class="fl-item" onclick="flyToAndPopup(${si.lat},${si.lng})">
-         <div class="fl-name">${si.name} <span class="fl-stars">${si.stars}</span></div>
+         <div class="fl-name">${si.ico} ${si.name}</div>
          <div class="fl-badges">
            <span class="fl-badge">Tag ${si.day}</span>
            <span class="fl-badge">${si.price}</span>
            <span class="fl-badge">${si.open}</span>
          </div>
+         ${si.addr ? `<div class="fl-sub">${mapsAddr(si.lat,si.lng,si.name,si.addr)}</div>` : ''}
        </div>`).join('');
   } else if(type === 'hotels'){
-    html = `<div class="fl-hdr">Unterkünfte (${STAGES.length})</div>`;
-    html += STAGES.map(s =>
-      `<div class="fl-item" onclick="flyToAndPopup(${s.lat},${s.lng})">
-         <div class="fl-name">${s.hotel}</div>
+    const sorted = [...HOTELS_DATA].sort((a,b) => a.day - b.day);
+    html = `<div class="fl-hdr">Unterkünfte (${sorted.length})</div>`;
+    html += sorted.map(h => {
+      const s = STAGES.find(x => x.day === h.day);
+      return `<div class="fl-item" onclick="flyToAndPopup(${s.lat},${s.lng})">
+         <div class="fl-name">🏨 ${h.name}</div>
          <div class="fl-badges">
-           <span class="fl-badge">Tag ${s.day} · ${s.to}</span>
-           <span class="fl-badge">${s.hotel_note.split('·')[0].trim()}</span>
+           <span class="fl-badge">Tag ${h.day} · ${h.ort}</span>
+           <span class="fl-badge">${h.preis}</span>
          </div>
-       </div>`).join('');
+         ${h.addr ? `<div class="fl-sub">${mapsAddr(s.lat,s.lng,h.name,h.addr)}</div>` : ''}
+       </div>`;}).join('');
   } else if(type === 'restaurants'){
-    html = `<div class="fl-hdr">Restaurants (${RESTAURANTS.length})</div>`;
-    html += RESTAURANTS.map(r =>
+    const sorted = [...RESTAURANTS].sort((a,b) => a.day - b.day);
+    html = `<div class="fl-hdr">Restaurants (${sorted.length})</div>`;
+    html += sorted.map(r =>
       `<div class="fl-item" onclick="flyToAndPopup(${r.lat},${r.lng})">
-         <div class="fl-name">${r.name}</div>
+         <div class="fl-name">🍽️ ${r.name}</div>
          <div class="fl-badges">
            <span class="fl-badge">Tag ${r.day}</span>
          </div>
-         <div class="fl-sub">${r.desc.length > 50 ? r.desc.slice(0,50)+'…' : r.desc}</div>
+         <div class="fl-sub">${r.desc.length > 55 ? r.desc.slice(0,55)+'…' : r.desc}</div>
+         ${r.addr ? `<div class="fl-sub">${mapsAddr(r.lat,r.lng,r.name,r.addr)}</div>` : ''}
        </div>`).join('');
   }
   list.innerHTML = html;
@@ -1024,11 +1144,14 @@ function buildStagePanel(){
     } else {
       sightsTab = daySights.map(si =>
         `<div class="spd-item" onclick="flyToAndPopup(${si.lat},${si.lng})">
-           <div class="spd-name">${si.name} <span style="color:#f59e0b">${si.stars}</span></div>
-           <div class="spd-badges">
-             <span class="spd-badge">${si.price}</span>
-             <span class="spd-badge">${si.open}</span>
-           </div>
+           <div class="spd-name">${si.ico} ${si.name}</div>
+           ${infoTable([
+             ['💰', si.price],
+             ['🕐', si.open],
+             ['📍', mapsAddr(si.lat, si.lng, si.name, si.addr)],
+             ['📞', si.tel ? `<a href="tel:${si.tel}">${si.tel}</a>` : ''],
+             ['🌐', si.web ? `<a href="${si.web}" target="_blank">${shortUrl(si.web)}</a>` : ''],
+           ])}
          </div>`).join('');
     }
 
@@ -1040,15 +1163,26 @@ function buildStagePanel(){
       essenTab = dayRestos.map(r =>
         `<div class="spd-item" onclick="flyToAndPopup(${r.lat},${r.lng})">
            <div class="spd-name">${r.name}</div>
-           <div class="spd-desc">${r.desc.length > 60 ? r.desc.slice(0,60)+'…' : r.desc}</div>
+           ${infoTable([
+             ['📝', r.desc],
+             ['📍', mapsAddr(r.lat, r.lng, r.name, r.addr)],
+             ['📞', r.tel ? `<a href="tel:${r.tel}">${r.tel}</a>` : ''],
+           ])}
          </div>`).join('');
     }
 
     // ── Tab 3: Hotel ──
+    const hd = HOTELS_DATA.find(h => h.day === s.day);
     const schlafenTab =
       `<div class="spd-item">
-         <div class="spd-name">${s.hotel}</div>
-         <div class="spd-badges"><span class="spd-badge">${s.hotel_note}</span></div>
+         <div class="spd-name">🏨 ${s.hotel}</div>
+         ${infoTable([
+           ['💰', hd ? hd.preis : ''],
+           ['📝', s.hotel_note],
+           ['📍', hd ? mapsAddr(s.lat, s.lng, s.hotel, hd.addr) : ''],
+           ['📞', hd && hd.tel ? `<a href="tel:${hd.tel}">${hd.tel}</a>` : ''],
+           ['🌐', hd && hd.web ? `<a href="${hd.web}" target="_blank">${shortUrl(hd.web)}</a>` : ''],
+         ])}
        </div>`;
 
     // First tab is active by default
@@ -1316,11 +1450,39 @@ buildEtappen();
 function buildSights(filter){
   const wrap = document.getElementById('sights-list');
   wrap.innerHTML = '';
-  (filter === 'all' ? SIGHTS : SIGHTS.filter(s => s.cat === filter)).forEach(s => {
-    const div = document.createElement('div');
-    div.className = 'sight-c';
-    div.innerHTML = `<div class="s-ico">${s.ico}</div><div class="s-info"><div class="s-name">${s.name}</div><div class="s-day">Tag ${s.day} · ${s.price} · ${s.open}</div><div class="s-stars">${s.stars}</div><div class="s-desc">${s.desc}</div></div>`;
-    wrap.appendChild(div);
+  const list = (filter === 'all' ? SIGHTS : SIGHTS.filter(s => s.cat === filter))
+    .slice().sort((a,b) => a.day - b.day);
+
+  // Nach Tag gruppieren
+  const byDay = {};
+  list.forEach(s => { (byDay[s.day] = byDay[s.day] || []).push(s); });
+
+  Object.keys(byDay).map(Number).sort((a,b)=>a-b).forEach(day => {
+    const stage = STAGES.find(s => s.day === day);
+    // Tages-Überschrift
+    const hdr = document.createElement('div');
+    hdr.className = 'sights-day-hdr';
+    hdr.innerHTML = `<span class="sdh-num">Tag ${day}</span>`+
+      (stage ? `<span class="sdh-route">${stage.from} → ${stage.to}</span>` : '')+
+      `<span class="sdh-date">${stage ? stage.date : ''}</span>`;
+    wrap.appendChild(hdr);
+
+    byDay[day].forEach(s => {
+      const div = document.createElement('div');
+      div.className = 'sight-c';
+      div.innerHTML = `<div class="s-ico">${s.ico}</div><div class="s-info">
+        <div class="s-name">${s.name}</div>
+        <div class="s-desc">${s.desc}</div>
+        ${infoTable([
+          ['💰 Preis',  s.price],
+          ['🕐 Öffnung',s.open],
+          ['📍 Adresse',mapsAddr(s.lat, s.lng, s.name, s.addr)],
+          ['📞 Tel',    s.tel ? `<a href="tel:${s.tel}">${s.tel}</a>` : ''],
+          ['🌐 Website',s.web ? `<a href="${s.web}" target="_blank">${shortUrl(s.web)}</a>` : ''],
+        ])}
+      </div>`;
+      wrap.appendChild(div);
+    });
   });
 }
 function filterSights(cat,btn){
@@ -1382,8 +1544,26 @@ buildPack();
 // ⑩ ESSEN & TIPPS & HOTELS
 // ═══════════════════════════════════════════════════
 function buildEssen(){
+  // Restaurants nach Tag sortieren: ESSEN_DATA mit RESTAURANTS-Koordinaten anreichern
+  const sorted = [...ESSEN_DATA.highlights].sort((a,b) => {
+    const da = parseInt(a.day) || 0, db = parseInt(b.day) || 0;
+    return da - db;
+  });
   let h = '<div class="food-sec"><div class="food-sec-hdr">🌟 Restaurant-Highlights</div>';
-  ESSEN_DATA.highlights.forEach(r => { h += `<div class="food-c"><div class="food-name">${r.name}</div><div class="food-day">${r.day}</div><div class="food-stars">${r.stars}</div><div class="food-desc">${r.desc}</div></div>`; });
+  sorted.forEach(r => {
+    // Koordinaten aus RESTAURANTS für Maps-Link suchen
+    const match = RESTAURANTS.find(x => x.name === r.name || x.name.includes(r.name.split(' ')[0]));
+    const addrLink = (match && r.addr) ? mapsAddr(match.lat, match.lng, r.name, r.addr) : (r.addr || '');
+    h += `<div class="food-c">
+      <div class="food-name">${r.name}</div>
+      ${infoTable([
+        ['📅',  r.day],
+        ['📍',  addrLink],
+        ['📞',  r.tel ? `<a href="tel:${r.tel}">${r.tel}</a>` : ''],
+      ])}
+      <div class="food-desc">${r.desc}</div>
+    </div>`;
+  });
   h += '</div><div class="food-sec"><div class="food-sec-hdr">🎒 Verpflegung unterwegs</div><div class="food-c">';
   ESSEN_DATA.trail.forEach(t => { h += `<div class="food-trail-item"><div class="fi">${t.ico}</div><div>${t.txt}</div></div>`; });
   document.getElementById('essen-list').innerHTML = h + '</div></div>';
@@ -1398,17 +1578,27 @@ function buildTipps(){
 buildTipps();
 
 function buildHotels(){
-  document.getElementById('hotels-list').innerHTML = HOTELS_DATA.map(h => {
+  const sorted = [...HOTELS_DATA].sort((a,b) => a.day - b.day);
+  document.getElementById('hotels-list').innerHTML = sorted.map(h => {
     const s = STAGES.find(x=>x.day===h.day);
     const diff = getDiff(s);
     const col = DIFF[diff].col;
-    return `<div class="e-card" style="margin:8px 12px 0"><div style="padding:11px 12px;display:flex;gap:10px;align-items:flex-start">
-      <div class="e-num" style="background:${col};flex-shrink:0">${h.day}</div>
-      <div style="flex:1"><div style="font-weight:700;font-size:.86rem;color:#1e3a28">${h.name}</div>
-      <div style="font-size:.72rem;color:#999;margin:1px 0">${h.ort} ${h.stars}</div>
-      <div style="font-size:.8rem;color:#c97d2a;font-weight:600;margin-top:3px">${h.preis}</div>
-      <div style="font-size:.8rem;color:#555;margin-top:2px">${h.note}</div></div>
-    </div></div>`;
+    return `<div class="e-card" style="margin:8px 12px 0">
+      <div style="padding:11px 12px;display:flex;gap:10px;align-items:flex-start">
+        <div class="e-num" style="background:${col};flex-shrink:0">${h.day}</div>
+        <div style="flex:1">
+          <div style="font-weight:700;font-size:.86rem;color:#1e3a28">${h.name}</div>
+          <div style="font-size:.72rem;color:#999;margin-bottom:4px">${h.ort}</div>
+          ${infoTable([
+            ['💰 Preis',  h.preis],
+            ['📝 Notiz',  h.note],
+            ['📍 Adresse',mapsAddr(s.lat, s.lng, h.name, h.addr)],
+            ['📞 Tel',    h.tel ? `<a href="tel:${h.tel}">${h.tel}</a>` : ''],
+            ['🌐 Website',h.web ? `<a href="${h.web}" target="_blank">${shortUrl(h.web)}</a>` : ''],
+          ])}
+        </div>
+      </div>
+    </div>`;
   }).join('');
 }
 buildHotels();
