@@ -49,7 +49,7 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 .e-card{background:#fff;border-radius:10px;margin:8px 12px 0;box-shadow:0 1px 4px rgba(0,0,0,.08);overflow:hidden}
 .e-hdr{display:flex;align-items:center;padding:11px 12px;cursor:pointer;gap:9px;user-select:none}
 .e-num{width:30px;height:30px;border-radius:50%;background:#3a6b4a;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;flex-shrink:0}
-.e-num.rest{background:#c97d2a}.e-num.long{background:#a93232}.e-num.today{background:#c97d2a;box-shadow:0 0 0 3px rgba(201,125,42,.3)}
+.e-num.rest{background:#c97d2a}.e-num.long{background:#a93232}
 .e-info{flex:1;min-width:0}
 .e-route{font-weight:600;font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .e-meta{font-size:.72rem;color:#999;margin-top:1px}
@@ -75,10 +75,6 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 #map-wrap{position:absolute;inset:0}
 #the-map{position:absolute;inset:0;transition:bottom .3s ease}
 
-/* Layer toggle buttons (top-left, below Leaflet zoom) */
-#layer-btns{position:absolute;top:80px;left:10px;z-index:1000;display:flex;flex-direction:column;gap:5px}
-.lbtn{background:rgba(255,255,255,.93);backdrop-filter:blur(4px);border:none;border-radius:8px;padding:6px 9px;font-size:.8rem;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.2);transition:all .15s;color:#555;white-space:nowrap;display:flex;align-items:center;gap:4px;font-family:inherit}
-.lbtn.off{opacity:.45;text-decoration:line-through}
 
 /* Panel toggle button (top-right) */
 #panel-tog{position:absolute;top:10px;right:10px;z-index:1000;background:#1e3a28;color:#fff;border:none;border-radius:9px;padding:9px 13px;font-size:.82rem;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.3);display:flex;align-items:center;gap:6px;font-family:inherit;font-weight:600}
@@ -900,8 +896,6 @@ function initMap(){
   // Build stage panel
   buildStagePanel();
 
-  // Elevation chart
-  initElevChart();
   elevInited = true;
 }
 
@@ -1136,17 +1130,12 @@ function toggleElev(){
   if(elevOpen && !window._elevChart) drawElevChart();
 }
 
-function initElevChart(){ /* defer until opened */ }
-
-const STAGE_KM_ENDS = [0,11,26,41,56,64,77,91,91,106,121,136,136,151,169,184,196];
 
 function drawElevChart(){
   const canvas = document.getElementById('elev-canvas');
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
 
-  // Build background zones by stage difficulty
-  const stageZones = [];
   const stageKmBounds = [
     {from:0,  to:11,  day:1},
     {from:11, to:26,  day:2},

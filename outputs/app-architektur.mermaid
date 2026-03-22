@@ -1,0 +1,81 @@
+flowchart TD
+    APP["🥾 altmuehltal-reisefuehrer.html\n─────────────────────────\nSingle-File PWA · Leaflet 1.9.4 · Chart.js 4.4.1"]
+
+    APP --> HDR["📌 Header\nTitel · Countdown-Badge"]
+    APP --> BODY["App Body"]
+    APP --> NAV["⬇️ Bottom Nav\nHeim · Karte · Etappen · Packliste · Mehr ▾"]
+
+    %% Pages
+    BODY --> P_HOME["🏠 Home\nStats · Budget · Dino-Highlights\nNoch-offen-Banner"]
+    BODY --> P_KARTE["🗺️ Karte\ninitMap()"]
+    BODY --> P_ETAPPEN["📅 Etappenplan\nbuildEtappen()"]
+    BODY --> P_PACK["🎒 Packliste\nbuildPack() · localStorage"]
+    BODY --> MORE["☰ Mehr-Menü"]
+    MORE --> P_SIGHTS["🎯 Sehensw.\nbuildSights()"]
+    MORE --> P_HOTELS["🏨 Hotels\nbuildHotels()"]
+    MORE --> P_ESSEN["🍽️ Essen\nbuildEssen()"]
+    MORE --> P_TIPPS["💡 Tipps\nbuildTipps()"]
+
+    %% Map page breakdown
+    subgraph KARTE_LAYOUT["🗺️ Karte – Layout-Schichten (z-index)"]
+        direction TB
+        LYR_MAP["Leaflet Map  z:auto\nOSM-Tiles · 14 farbige Segmentlinien\n16 Stage-Marker · Start/Ziel-Marker"]
+        LYR_FP["Filter-Panel  z:1000  oben-links\nAlle · Sehensw. · Hotels · Restaurants\nsetFilter() → Layer ein/aus + Liste"]
+        LYR_PT["Etappen-Button  z:1000  oben-rechts\ntogglePanel()"]
+        LYR_SP["Stage-Panel  z:900  rechts slide-in\nbuildStagePanel()\nTabs: Sights · Essen · Schlafen\nresetStageSelection()"]
+        LYR_EC["Höhenprofil  z:850  unten\ntoggleElev() · drawElevChart()\nChart.js afterDraw → Diff-Zonen"]
+        LYR_LEG["Legende  z:950  unten-rechts\ntoggleLegend()"]
+    end
+    P_KARTE --> KARTE_LAYOUT
+
+    %% Map layers
+    subgraph MAP_LAYERS["Leaflet LayerGroups"]
+        ML1["layers.sights\n20 Marker · grün #3a7d5e · sz32"]
+        ML2["layers.hotels\n16 Marker · navy #2c5f8a · sz32"]
+        ML3["layers.restaurants\n9 Marker · amber #b85c20 · sz32"]
+    end
+    LYR_MAP --- MAP_LAYERS
+
+    %% Core logic
+    subgraph LOGIC["⚙️ Kernlogik"]
+        FN_DIFF["getDiff(stage)\n─────────────\nkmPts + elevPts × 1.5\n→ leicht / mittel / schwer\n   anspruchsvoll / genuss"]
+        FN_ACTIVE["setActiveStage(day)\n─────────────\n① Segment weight 7 / opacity 1\n② Panel-Item active + Tab öffnen\n③ Chart.update() → afterDraw"]
+        FN_SEGS["STAGE_SEGS IIFE\n─────────────\nhaversine kumulativ\nGPX 374 Punkte → 14 Segmente\nbei App-Start berechnet"]
+        FN_POPUP["Popup-Fix\n─────────────\nmap.on('popupopen')\n→ removeAttribute('href')\nkein externer Link-Dialog"]
+    end
+
+    %% Data
+    subgraph DATA["📦 Datenschicht (JS-Konstanten)"]
+        D_TRACK["TRACK\n374 GPS-Punkte [lat,lng]"]
+        D_ELEV["ELEV\n151 Höhenpunkte [km, m]"]
+        D_STAGES["STAGES[16]\nday · from/to · km\nascent · descent · lat/lng\nhighlights · hotel"]
+        D_SIGHTS["SIGHTS[20]\ncat · name · stars\nday · price · open · lat/lng"]
+        D_RESTO["RESTAURANTS[9]\nname · day · lat/lng · desc"]
+        D_DIFF["DIFF{}\nleicht → #27ae60\nmittel → #e67e22\nschwer → #e74c3c\nanspruchsvoll → #8e44ad\ngenuss → #c97d2a"]
+    end
+
+    %% Data flows
+    D_TRACK --> FN_SEGS
+    FN_SEGS --> LYR_MAP
+    D_STAGES --> FN_DIFF
+    D_DIFF --> LYR_MAP
+    D_DIFF --> LYR_EC
+    D_SIGHTS --> ML1
+    D_RESTO  --> ML3
+    D_STAGES --> ML2
+    FN_ACTIVE --> LYR_MAP
+    FN_ACTIVE --> LYR_SP
+    FN_ACTIVE --> LYR_EC
+
+    %% Styles
+    classDef page fill:#e8f5e9,stroke:#3a6b4a,color:#1e3a28
+    classDef mapLayer fill:#e3f0fb,stroke:#2c5f8a,color:#1a3a5c
+    classDef logic fill:#fff3e0,stroke:#b85c20,color:#5a2d00
+    classDef data fill:#f3e5f5,stroke:#7b1fa2,color:#3d006e
+    classDef main fill:#1e3a28,stroke:#1e3a28,color:#fff
+
+    class APP main
+    class P_HOME,P_KARTE,P_ETAPPEN,P_PACK,P_SIGHTS,P_HOTELS,P_ESSEN,P_TIPPS page
+    class LYR_MAP,LYR_FP,LYR_PT,LYR_SP,LYR_EC,LYR_LEG,ML1,ML2,ML3 mapLayer
+    class FN_DIFF,FN_ACTIVE,FN_SEGS,FN_POPUP logic
+    class D_TRACK,D_ELEV,D_STAGES,D_SIGHTS,D_RESTO,D_DIFF data
