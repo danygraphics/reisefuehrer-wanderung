@@ -4,7 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>🥾 Altmühltal 2026</title>
+
+<!-- PWA (nur aktiv wenn über HTTPS ausgeliefert) -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1e3a28">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Altmühltal">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+
+<!-- Externe Libraries (CDN) -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+
+<!-- App Styles (inline) -->
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;background:#f5f3ee;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1a1a1a}
@@ -239,6 +251,7 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
 /* ── RESET BUTTON in panel ── */
 #sp-reset{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);color:rgba(255,255,255,.85);border-radius:6px;padding:3px 9px;font-size:.7rem;cursor:pointer;font-family:inherit;transition:all .15s}
 #sp-reset:hover{background:rgba(255,255,255,.28);color:#fff}
+
 </style>
 </head>
 <body>
@@ -292,16 +305,15 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
   <!-- ═══ KARTE (KOMBINIERT) ═══ -->
   <div id="pg-karte" class="page">
     <div id="map-wrap">
-      <!-- Die Karte selbst -->
       <div id="the-map"></div>
 
       <!-- Filter-Panel oben links -->
       <div id="filter-panel">
         <div id="filter-btns">
-          <button class="fbtn active" id="fb-all"     onclick="setFilter('all',this)">🗺️ Alle anzeigen</button>
-          <button class="fbtn"        id="fb-sights"  onclick="setFilter('sights',this)">🎯 Sehenswürdigkeiten</button>
-          <button class="fbtn"        id="fb-hotels"  onclick="setFilter('hotels',this)">🏨 Unterkünfte</button>
-          <button class="fbtn"        id="fb-resto"   onclick="setFilter('restaurants',this)">🍽️ Restaurants</button>
+          <button class="fbtn active" id="fb-all"    onclick="setFilter('all',this)">🗺️ Alle anzeigen</button>
+          <button class="fbtn"        id="fb-sights" onclick="setFilter('sights',this)">🎯 Sehenswürdigkeiten</button>
+          <button class="fbtn"        id="fb-hotels" onclick="setFilter('hotels',this)">🏨 Unterkünfte</button>
+          <button class="fbtn"        id="fb-resto"  onclick="setFilter('restaurants',this)">🍽️ Restaurants</button>
         </div>
         <div id="filter-list"></div>
       </div>
@@ -311,7 +323,7 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
         <span class="pt-ico">📅</span> Etappen
       </button>
 
-      <!-- ── STAGE PANEL (rechts, ausklappbar) ── -->
+      <!-- Stage Panel (rechts, ausklappbar) -->
       <div id="stage-panel">
         <div id="sp-hdr">
           <span>📅 Etappenplan</span>
@@ -330,7 +342,7 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
         <div id="sp-body"></div>
       </div>
 
-      <!-- ── HÖHENPROFIL (unten, aufklappbar) ── -->
+      <!-- Höhenprofil (unten, aufklappbar) -->
       <div id="elev-wrap">
         <div id="elev-handle" onclick="toggleElev()">
           <span style="margin-right:6px">📈</span>
@@ -342,7 +354,7 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
         </div>
       </div>
 
-      <!-- ── LEGENDE ── -->
+      <!-- Legende -->
       <div id="map-legend">
         <button id="legend-tog" onclick="toggleLegend()">🗺️ Legende</button>
         <div id="legend-body">
@@ -358,7 +370,6 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
           <div class="leg-row"><div class="leg-pin" style="background:#b85c20;color:#fff">🍽️</div>Restaurant</div>
         </div>
       </div>
-
     </div><!-- /map-wrap -->
   </div><!-- /pg-karte -->
 
@@ -440,7 +451,7 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
   <button class="nav-btn"     onclick="toggleMoreMenu(this)"><div class="ico">☰</div>Mehr</button>
 </nav>
 
-<!-- More Menu -->
+<!-- Mehr-Menü -->
 <div id="more-menu" style="display:none;position:fixed;bottom:calc(52px + env(safe-area-inset-bottom));left:0;right:0;background:rgba(0,0,0,.4);z-index:5000" onclick="if(event.target===this)closeMoreMenu()">
   <div style="background:#fff;border-radius:14px 14px 0 0;padding:8px 0 12px">
     <div style="text-align:center;padding:6px 0 10px;font-size:.72rem;color:#aaa;text-transform:uppercase;letter-spacing:.06em">Mehr</div>
@@ -451,13 +462,12 @@ body{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidd
   </div>
 </div>
 
-<!-- ╔══════════════════════════════════════════════════╗
-     ║                  JAVASCRIPT                     ║
-     ╚══════════════════════════════════════════════════╝ -->
+<!-- Externe Libraries (CDN) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script>
 
+<!-- App-Daten (inline) -->
+<script>
 // ═══════════════════════════════════════════════════
 // ① CORE DATA
 // ═══════════════════════════════════════════════════
@@ -721,6 +731,11 @@ const HOTELS_DATA = [
   {day:16,ort:"Kelheim",name:"Pension Carlbauer",preis:"ab 56 € DZ",note:"Zentral, beliebt bei Wanderern",stars:"⭐⭐"}
 ];
 
+
+</script>
+
+<!-- App-Logik (inline) -->
+<script>
 // ═══════════════════════════════════════════════════
 // ② COUNTDOWN
 // ═══════════════════════════════════════════════════
@@ -1398,6 +1413,19 @@ function buildHotels(){
 }
 buildHotels();
 
+
 </script>
+
+<!-- Service Worker – nur unter HTTPS registrieren -->
+<script>
+if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js')
+      .then(r  => console.log('[SW] Registriert:', r.scope))
+      .catch(e => console.warn('[SW] Registrierung fehlgeschlagen:', e));
+  });
+}
+</script>
+
 </body>
 </html>
